@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="rootmarkup">
+		<xs:annotation>
+			<xs:documentation>Comment describing rootMarkup</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="firstmarkupunderroot" type="xs:string"/>
+				<xs:element name="secondmarkupunderroot">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="firstchoice" type="fstchoice"/>
+							<xs:element name="secondchoice" type="sndchoice"/>
+						</xs:choice>
+						<xs:attribute name="name" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer"/>
+			<xs:attribute name="type" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="fstchoice">
+		<xs:attribute name="choice" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="sndchoice">
+		<xs:sequence>
+		    <xs:element name="name" type="stringtype"/>
+			<xs:element name="address" type="stringtype"/>
+		    <xs:element name="city" type="city"/>
+		    <xs:element name="country" type="country"/>
+		  	<xs:element name="age" type="age"/>
+		</xs:sequence>
+		<xs:attribute name="choice" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:simpleType name="stringtype">
+	    <xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="city">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z][a-zA-Z][a-zA-Z]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="country">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FR"/>
+			<xs:enumeration value="GB"/>
+			<xs:enumeration value="IT"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="age">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="120"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>
