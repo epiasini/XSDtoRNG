@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A RELAX NG pattern for XLink by John Cowan, converted from
+     RELAX NG Compact Syntax posted at:
+     http://lists.xml.org/archives/xml-dev/200206/msg01074.html
+-->
+<grammar ns="http://www.w3.org/1999/xlink"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <start>
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <choice>
+          <ref name="simple"/>
+          <ref name="extended"/>
+          <ref name="anyElem"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </start>
+
+  <define name="href">
+    <attribute name="xlink:href">
+      <data type="anyURI"/>
+    </attribute>
+  </define>
+
+  <define name="role">
+    <attribute name="xlink:role">
+      <data type="anyURI"/>
+    </attribute>
+  </define>
+
+  <define name="arcrole">
+    <attribute name="xlink:arcrole">
+      <data type="anyURI"/>
+    </attribute>
+  </define>
+
+  <define name="title.att">
+    <attribute name="xlink:title"/>
+  </define>
+
+  <define name="show">
+    <attribute name="xlink:show">
+      <choice>
+        <value>new</value>
+        <value>replace</value>
+        <value>embed</value>
+        <value>other</value>
+        <value>none</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define name="actuate">
+    <attribute name="xlink:actuate">
+      <choice>
+        <value>onLoad</value>
+        <value>onRequest</value>
+        <value>other</value>
+        <value>none</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define name="label">
+    <attribute name="xlink:label">
+      <data type="NMTOKEN"/>
+    </attribute>
+  </define>
+
+  <define name="from">
+    <attribute name="xlink:from">
+      <data type="NMTOKEN"/>
+    </attribute>
+  </define>
+
+  <define name="to">
+    <attribute name="xlink:to">
+      <data type="NMTOKEN"/>
+    </attribute>
+  </define>
+
+  <define name="simple">
+    <element>
+      <anyName/>
+      <attribute name="xlink:type">
+        <value>simple</value>
+      </attribute>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="href"/>
+      </optional>
+      <optional>
+        <ref name="role"/>
+      </optional>
+      <optional>
+        <ref name="arcrole"/>
+      </optional>
+      <optional>
+        <ref name="title.att"/>
+      </optional>
+      <optional>
+        <ref name="show"/>
+      </optional>
+      <optional>
+        <ref name="actuate"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="extended">
+    <element>
+      <anyName/>
+      <attribute name="xlink:type">
+        <value>extended</value>
+      </attribute>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="role"/>
+      </optional>
+      <optional>
+        <ref name="title.att"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="title"/>
+          <ref name="resource"/>
+          <ref name="locator"/>
+          <ref name="arc"/>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="title">
+    <element>
+      <anyName/>
+      <attribute name="xlink:type">
+        <value>title</value>
+      </attribute>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <choice>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="resource">
+    <element>
+      <anyName/>
+      <attribute name="xlink:type">
+        <value>resource</value>
+      </attribute>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="role"/>
+      </optional>
+      <optional>
+        <ref name="title.att"/>
+      </optional>
+      <optional>
+        <ref name="label"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="locator">
+    <element>
+      <anyName/>
+      <attribute name="xlink:type">
+        <value>locator</value>
+      </attribute>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <ref name="href"/>
+      <optional>
+        <ref name="role"/>
+      </optional>
+      <optional>
+        <ref name="title.att"/>
+      </optional>
+      <optional>
+        <ref name="label"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="title"/>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="arc">
+    <element>
+      <anyName/>
+      <attribute name="xlink:type">
+        <value>arc</value>
+      </attribute>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="arcrole"/>
+      </optional>
+      <optional>
+        <ref name="title.att"/>
+      </optional>
+      <optional>
+        <ref name="show"/>
+      </optional>
+      <optional>
+        <ref name="actuate"/>
+      </optional>
+      <optional>
+        <ref name="from"/>
+      </optional>
+      <optional>
+        <ref name="to"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="title"/>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="anyElem">
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <ref name="anyAttr"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <choice>
+          <ref name="anyElem"/>
+          <text/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="anyAttr">
+    <attribute>
+      <anyName>
+        <except>
+          <nsName/>
+        </except>
+      </anyName>
+    </attribute>
+  </define>
+
+</grammar>

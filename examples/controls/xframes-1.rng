@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2002/06/xframes/" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:xml="http://www.w3.org/XML/1998/namespace"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    XFrames RELAX NG pattern
+    URI: http://www.w3.org/MarkUp/RELAXNG/xframes-1.rng
+
+    This is XFrames - an XML application for composing documents together.
+
+    Copyright ©2002-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+
+        Editor:   Masayasu Ishikawa (mimasa@w3.org)
+        Revision: $Id: xframes-1.rng,v 1.19 2005/10/05 23:53:41 mimasa Exp $
+
+    Permission to use, copy, modify and distribute the XFrames RELAX NG
+    pattern and its accompanying documentation for any purpose and without
+    fee is hereby granted in perpetuity, provided that the above copyright
+    notice and this paragraph appear in all copies. The copyright holders
+    make no representation about the suitability of this RELAX NG pattern
+    for any purpose.
+
+    It is provided "as is" without expressed or implied warranty.
+  </a:documentation>
+
+  <a:documentation>
+    XFrames
+
+    frames, head, title, style, group, frame
+
+    This XFrames RELAX NG pattern declares elements and attributes defining
+    XFrames, an XML application for composing documents together.
+  </a:documentation>
+
+  <start>
+    <choice>
+      <ref name="frames"/>
+    </choice>
+  </start>
+
+  <div>
+    <a:documentation>
+      Datatypes
+    </a:documentation>
+
+    <define name="ContentType.datatype">
+      <a:documentation>
+        ContentType.datatype
+
+        media type, as per [RFC2045]
+      </a:documentation>
+      <text/>
+    </define>
+
+    <define name="MediaDesc.datatype">
+      <a:documentation>
+        A comma-separated list of media descriptors as described by [CSS2].
+        The default is all.
+      </a:documentation>
+      <data type="string">
+        <param name="pattern">[^,]+(,\s*[^,]+)*</param>
+      </data>
+    </define>
+
+    <define name="QName.datatype">
+      <a:documentation>
+        QName.datatype
+
+        An [XMLNS]-qualified name.
+      </a:documentation>
+      <data type="QName"/>
+    </define>
+
+    <define name="URI.datatype">
+      <a:documentation>
+        URI.datatype
+
+        An Internationalized Resource Identifier Reference, as defined
+        by [IRI].
+      </a:documentation>
+      <data type="anyURI"/>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      Common Attributes
+
+      class, xml:id, title
+    </a:documentation>
+
+    <define name="XFRAMES.Common.extra.attrib">
+      <empty/>
+    </define>
+
+    <define name="XFRAMES.Common.attrib">
+      <optional>
+        <attribute name="class">
+          <data type="NMTOKENS"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="xml:id">
+          <data type="ID"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="title"/>
+      </optional>
+      <ref name="XFRAMES.Common.extra.attrib"/>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      frames element
+    </a:documentation>
+
+    <define name="XFRAMES.frames.content">
+      <optional>
+        <ref name="head"/>
+      </optional>
+      <choice>
+        <ref name="group"/>
+        <oneOrMore>
+          <ref name="frame"/>
+        </oneOrMore>
+      </choice>
+    </define>
+
+    <define name="frames">
+      <element name="frames">
+        <ref name="attlist.frames"/>
+        <ref name="XFRAMES.frames.content"/>
+      </element>
+    </define>
+
+    <define name="attlist.frames" combine="interleave">
+      <ref name="XFRAMES.Common.attrib"/>
+      <optional>
+        <attribute name="xml:base">
+          <ref name="URI.datatype"/>
+        </attribute>
+      </optional>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      head element
+    </a:documentation>
+
+    <define name="XFRAMES.head.content">
+      <ref name="title"/>
+      <zeroOrMore>
+        <ref name="style"/>
+      </zeroOrMore>
+    </define>
+
+    <define name="head">
+      <element name="head">
+        <ref name="attlist.head"/>
+        <ref name="XFRAMES.head.content"/>
+      </element>
+    </define>
+
+    <define name="attlist.head" combine="interleave">
+      <ref name="XFRAMES.Common.attrib"/>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      title element
+    </a:documentation>
+
+    <define name="XFRAMES.title.content">
+      <text/>
+    </define>
+
+    <define name="title">
+      <element name="title">
+        <ref name="attlist.title"/>
+        <ref name="XFRAMES.title.content"/>
+      </element>
+    </define>
+
+    <define name="attlist.title" combine="interleave">
+      <ref name="XFRAMES.Common.attrib"/>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      style element
+    </a:documentation>
+
+    <define name="XFRAMES.style.content">
+      <text/>
+    </define>
+
+    <define name="style">
+      <element name="style">
+        <ref name="attlist.style"/>
+        <ref name="XFRAMES.style.content"/>
+      </element>
+    </define>
+
+    <define name="attlist.style" combine="interleave">
+      <ref name="XFRAMES.Common.attrib"/>
+      <attribute name="type">
+        <ref name="ContentType.datatype"/>
+      </attribute>
+      <optional>
+        <attribute name="media" a:defaultValue="all">
+          <ref name="MediaDesc.datatype"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="source">
+          <ref name="URI.datatype"/>
+        </attribute>
+      </optional>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      group element
+    </a:documentation>
+
+    <define name="XFRAMES.group.content">
+      <oneOrMore>
+        <choice>
+          <ref name="group"/>
+          <ref name="frame"/>
+        </choice>
+      </oneOrMore>
+    </define>
+
+    <define name="group">
+      <element name="group">
+        <ref name="attlist.group"/>
+        <ref name="XFRAMES.group.content"/>
+      </element>
+    </define>
+
+    <define name="attlist.group" combine="interleave">
+      <ref name="XFRAMES.Common.attrib"/>
+      <optional>
+        <attribute name="compose" a:defaultValue="vertical">
+          <choice>
+            <value>vertical</value>
+            <value>horizontal</value>
+            <value>single</value>
+            <value>free</value>
+            <ref name="QName.datatype"/>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="xml:base">
+          <ref name="URI.datatype"/>
+        </attribute>
+      </optional>
+    </define>
+  </div>
+
+  <div>
+    <a:documentation>
+      frame element
+    </a:documentation>
+
+    <define name="XFRAMES.frame.content">
+      <empty/>
+    </define>
+
+    <define name="frame">
+      <element name="frame">
+        <ref name="attlist.frame"/>
+        <ref name="XFRAMES.frame.content"/>
+      </element>
+    </define>
+
+    <define name="attlist.frame" combine="interleave">
+      <ref name="XFRAMES.Common.attrib"/>
+      <optional>
+        <attribute name="source">
+          <ref name="URI.datatype"/>
+        </attribute>
+      </optional>
+    </define>
+  </div>
+
+</grammar>

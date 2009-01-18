@@ -1,0 +1,6006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE grammar SYSTEM "relaxng.dtd">
+<grammar ns="http://www.w3.org/2000/svg"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    =====================================================================
+    This is an unofficial RELAX NG schema for SVG 1.0.
+
+    Author: Masayasu Ishikawa (mimasa@w3.org)
+    $Id: svg10.rng,v 1.9 2003/12/08 12:39:52 mimasa Exp $
+
+    The specification for SVG that corresponds to this RELAX NG schema is
+    available at:
+
+      http://www.w3.org/TR/2001/REC-SVG-20010904/
+
+    For SVG 1.0:
+
+      Namespace:
+        http://www.w3.org/2000/svg  
+
+    =====================================================================
+  </a:documentation>
+
+  <a:documentation>
+    ==============================================================
+    PATTERN DECLARATIONS: Data types 
+    ==============================================================
+  </a:documentation>
+
+  <define name="BaselineShiftValue">
+    <a:documentation>
+      'baseline-shift' property/attribute value
+      (e.g., 'baseline', 'sub', etc.)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Boolean">
+    <a:documentation>
+      feature specification
+    </a:documentation>
+    <choice>
+      <value>false</value>
+      <value>true</value>
+    </choice>
+  </define>
+
+  <define name="ClassList">
+    <a:documentation>
+      list of classes
+    </a:documentation>
+    <data type="NMTOKENS"/>
+  </define>
+
+  <define name="ClipValue">
+    <a:documentation>
+      'clip' property/attribute value (e.g., 'auto', rect(...))
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="ClipPathValue">
+    <a:documentation>
+      'clip-path' property/attribute value (e.g., 'none', "URI")
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="ClipFillRule">
+    <a:documentation>
+      'clip-rule' or fill-rule property/attribute value
+    </a:documentation>
+    <choice>
+      <value>nonzero</value>
+      <value>evenodd</value>
+      <value>inherit</value>
+    </choice>
+  </define>
+
+  <define name="ContentType">
+    <a:documentation>
+      media type, as per [RFC2045]
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Coordinate">
+    <a:documentation>
+      a &lt;coordinate>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Coordinates">
+    <a:documentation>
+      a list of &lt;coordinate>s
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Color">
+    <a:documentation>
+      a &lt;color> value
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="CursorValue">
+    <a:documentation>
+      'cursor' property/attribute value (e.g., 'crosshair', "URI")
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+
+  <define name="EnableBackgroundValue">
+    <a:documentation>
+      'enable-background' property/attribute value
+      (e.g., 'new', 'accumulate')
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="ExtensionList">
+    <a:documentation>
+      extension list specification
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="FeatureList">
+    <a:documentation>
+      feature list specification
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="FilterValue">
+    <a:documentation>
+      'filter' property/attribute value (e.g., 'none', "URI")
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="FontFamilyValue">
+    <a:documentation>
+      'font-family' property/attribute value (i.e., list of fonts)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="FontSizeValue">
+    <a:documentation>
+      'font-size' property/attribute value
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="FontSizeAdjustValue">
+    <a:documentation>
+      'font-size-adjust' property/attribute value
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="GlyphOrientationHorizontalValue">
+    <a:documentation>
+      'glyph-orientation-horizontal' property/attribute value
+      (e.g., &lt;angle>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="GlyphOrientationVerticalValue">
+    <a:documentation>
+      'glyph-orientation-vertical' property/attribute value
+      (e.g., 'auto', &lt;angle>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Integer">
+    <a:documentation>
+      a &lt;integer>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="KerningValue">
+    <a:documentation>
+      'kerning' property/attribute value
+      (e.g., auto | &lt;length>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="LanguageCode">
+    <a:documentation>
+      a language code, as per [RFC3066]
+    </a:documentation>
+    <data type="language"/>
+  </define>
+
+  <define name="LanguageCodes">
+    <a:documentation>
+      comma-separated list of language codes, as per [RFC3066]
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Length">
+    <a:documentation>
+      a &lt;length>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Lengths">
+    <a:documentation>
+      a list of &lt;length>s
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="LinkTarget">
+    <a:documentation>
+      link to this target
+    </a:documentation>
+    <data type="NMTOKEN"/>
+  </define>
+
+  <define name="MarkerValue">
+    <a:documentation>
+      'marker' property/attribute value (e.g., 'none', "URI")
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="MaskValue">
+    <a:documentation>
+      'mask' property/attribute value (e.g., 'none', "URI")
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="MediaDesc">
+    <a:documentation>
+      comma-separated list of media descriptors.
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Number">
+    <a:documentation>
+      a &lt;number>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="NumberOptionalNumber">
+    <a:documentation>
+      list of &lt;number>s, but at least one and at most two
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="NumberOrPercentage">
+    <a:documentation>
+      a &lt;number> or a &lt;percentage>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Numbers">
+    <a:documentation>
+      a list of &lt;number>s
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="OpacityValue">
+    <a:documentation>
+      opacity value (e.g., &lt;number>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Paint">
+    <a:documentation>
+      a 'fill' or 'stroke' property/attribute value: &lt;paint>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="PathData">
+    <a:documentation>
+      a path data specification
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Points">
+    <a:documentation>
+      a list of points
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="PreserveAspectRatioSpec">
+    <a:documentation>
+      'preserveAspectRatio' attribute specification
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">\s*(none|(xMinYMin|xMidYMin|xMaxYMin|xMinYMid|xMidYMid|xMaxYMid|xMinYMax|xMidYMax|xMaxYMax)\s+(meet|slice)?)\s*</param>
+    </data>
+  </define>
+
+  <define name="Script">
+    <a:documentation>
+      script expression
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SpacingValue">
+    <a:documentation>
+      'letter-spacing' or 'word-spacing' property/attribute value
+      (e.g., normal | &lt;length>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="StrokeDashArrayValue">
+    <a:documentation>
+      'stroke-dasharray' property/attribute value
+      (e.g., 'none', list of &lt;number>s)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="StrokeDashOffsetValue">
+    <a:documentation>
+      'stroke-dashoffset' property/attribute value
+      (e.g., 'none', &lt;legnth>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="StrokeMiterLimitValue">
+    <a:documentation>
+      'stroke-miterlimit' property/attribute value (e.g., &lt;number>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="StrokeWidthValue">
+    <a:documentation>
+      'stroke-width' property/attribute value (e.g., &lt;length>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="StructuredText">
+    <optional>
+      <attribute name="content" a:defaultValue="structured text">
+        <value type="string">structured text</value>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="StyleSheet">
+    <a:documentation>
+      style sheet data
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGColor">
+    <a:documentation>
+      An SVG color value (RGB plus optional ICC)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Text">
+    <a:documentation>
+      arbitrary text string
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="TextDecorationValue">
+    <a:documentation>
+      'text-decoration' property/attribute value (e.g., 'none', 'underline')
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="TransformList">
+    <a:documentation>
+      list of transforms
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="URI">
+    <a:documentation>
+      a Uniform Resource Identifier, see [URI]
+    </a:documentation>
+    <data type="anyURI"/>
+  </define>
+
+  <define name="ViewBoxSpec">
+    <a:documentation>
+      'viewBox' attribute specification
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    PATTERN DECLARATIONS: Collections of common attributes 
+    ==============================================================
+  </a:documentation>
+
+  <define name="stdAttrs">
+    <a:documentation>
+      All elements have an ID.
+    </a:documentation>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:base">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <zeroOrMore>
+      <ref name="foreignAttribute"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="langSpaceAttrs">
+    <a:documentation>
+      Common attributes for elements that might contain character data content.
+    </a:documentation>
+    <optional>
+      <attribute name="xml:lang">
+        <ref name="LanguageCode"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:space">
+        <choice>
+          <value>default</value>
+          <value>preserve</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="testAttrs">
+    <a:documentation>
+      Common attributes to check for system capabilities.
+    </a:documentation>
+    <optional>
+      <attribute name="requiredFeatures">
+        <ref name="FeatureList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="requiredExtensions">
+        <ref name="ExtensionList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="systemLanguage">
+        <ref name="LanguageCodes"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="xlinkRefAttrs">
+    <a:documentation>
+      For most uses of URI referencing:
+      standard XLink attributes other than xlink:href.
+    </a:documentation>
+    <optional>
+      <attribute name="xlink:type" a:defaultValue="simple">
+        <value>simple</value>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:role">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:arcrole">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:title"/>
+    </optional>
+    <optional>
+      <attribute name="xlink:show" a:defaultValue="other">
+        <choice>
+          <value>other</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:actuate" a:defaultValue="onLoad">
+        <value>onLoad</value>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="xlinkRefAttrsEmbed">
+    <a:documentation>
+      Standard XLink attributes for uses of URI referencing where
+      xlink:show is 'embed'
+    </a:documentation>
+    <optional>
+      <attribute name="xlink:type" a:defaultValue="simple">
+        <value>simple</value>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:role">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:arcrole">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:title"/>
+    </optional>
+    <optional>
+      <attribute name="xlink:show" a:defaultValue="embed">
+        <choice>
+          <value>embed</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:actuate" a:defaultValue="onLoad">
+        <value>onLoad</value>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="graphicsElementEvents">
+    <optional>
+      <attribute name="onfocusin">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onfocusout">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onactivate">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onclick">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmousedown">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmouseup">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmouseover">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmousemove">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmouseout">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onload">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="documentEvents">
+    <optional>
+      <attribute name="onunload">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onabort">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onerror">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onresize">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onscroll">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onzoom">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="animationEvents">
+    <optional>
+      <attribute name="onbegin">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onend">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onrepeat">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="descTitleMetadata">
+    <a:documentation>
+      This pattern allows for at most one of desc, title and metadata,
+      supplied in any order
+    </a:documentation>
+    <interleave>
+      <optional>
+        <ref name="desc"/>
+      </optional>
+      <optional>
+        <ref name="title"/>
+      </optional>
+      <optional>
+        <ref name="metadata"/>
+      </optional>
+    </interleave>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    PATTERN DECLARATIONS: Collections of presentation attributes 
+    ==============================================================
+  </a:documentation>
+
+  <define name="PresentationAttributes-Color">
+    <a:documentation>
+      The following presentation attributes have to do with specifying color.
+    </a:documentation>
+    <optional>
+      <attribute name="color">
+        <ref name="Color"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="color-interpolation">
+        <choice>
+          <value>auto</value>
+          <value>sRGB</value>
+          <value>linearRGB</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="color-rendering">
+        <choice>
+          <value>auto</value>
+          <value>optimizeSpeed</value>
+          <value>optimizeQuality</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-Containers">
+    <a:documentation>
+      The following presentation attributes apply to container elements.
+    </a:documentation>
+    <optional>
+      <attribute name="enable-background">
+        <ref name="EnableBackgroundValue"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-feFlood">
+    <a:documentation>
+      The following presentation attributes apply to 'feFlood' elements.
+    </a:documentation>
+    <optional>
+      <attribute name="flood-color">
+        <ref name="SVGColor"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="flood-opacity">
+        <ref name="OpacityValue"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-FillStroke">
+    <a:documentation>
+      The following presentation attributes apply to filling and
+      stroking operations.
+    </a:documentation>
+    <optional>
+      <attribute name="fill">
+        <ref name="Paint"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fill-opacity">
+        <ref name="OpacityValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fill-rule">
+        <ref name="ClipFillRule"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke">
+        <ref name="Paint"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-dasharray">
+        <ref name="StrokeDashArrayValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-dashoffset">
+        <ref name="StrokeDashOffsetValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-linecap">
+        <choice>
+          <value>butt</value>
+          <value>round</value>
+          <value>square</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-linejoin">
+        <choice>
+          <value>miter</value>
+          <value>round</value>
+          <value>bevel</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-miterlimit">
+        <ref name="StrokeMiterLimitValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-opacity">
+        <ref name="OpacityValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stroke-width">
+        <ref name="StrokeWidthValue"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-FilterPrimitives">
+    <a:documentation>
+      The following presentation attributes apply to filter primitives.
+    </a:documentation>
+    <optional>
+      <attribute name="color-interpolation-filters">
+        <choice>
+          <value>auto</value>
+          <value>sRGB</value>
+          <value>linearRGB</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-FontSpecification">
+    <a:documentation>
+      The following presentation attributes have to do with selecting
+      a font to use.
+    </a:documentation>
+    <optional>
+      <attribute name="font-family">
+        <ref name="FontFamilyValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-size">
+        <ref name="FontSizeValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-size-adjust">
+        <ref name="FontSizeAdjustValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-stretch">
+        <choice>
+          <value>normal</value>
+          <value>wider</value>
+          <value>narrower</value>
+          <value>ultra-condensed</value>
+          <value>extra-condensed</value>
+          <value>condensed</value>
+          <value>semi-condensed</value>
+          <value>semi-expanded</value>
+          <value>expanded</value>
+          <value>extra-expanded</value>
+          <value>ultra-expanded</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-style">
+        <choice>
+          <value>normal</value>
+          <value>italic</value>
+          <value>oblique</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-variant">
+        <choice>
+          <value>normal</value>
+          <value>small-caps</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-weight">
+        <choice>
+          <value>normal</value>
+          <value>bold</value>
+          <value>bolder</value>
+          <value>lighter</value>
+          <value>100</value>
+          <value>200</value>
+          <value>300</value>
+          <value>400</value>
+          <value>500</value>
+          <value>600</value>
+          <value>700</value>
+          <value>800</value>
+          <value>900</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-Gradients">
+    <a:documentation>
+      The following presentation attributes apply to gradient 'stop' elements.
+    </a:documentation>
+    <optional>
+      <attribute name="stop-color">
+        <ref name="SVGColor"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stop-opacity">
+        <ref name="OpacityValue"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-Graphics">
+    <a:documentation>
+      The following presentation attributes apply to graphics elements.
+    </a:documentation>
+    <optional>
+      <attribute name="clip-path">
+        <ref name="ClipPathValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clip-rule">
+        <ref name="ClipFillRule"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cursor">
+        <ref name="CursorValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="display">
+        <choice>
+          <value>inline</value>
+          <value>block</value>
+          <value>list-item</value>
+          <value>run-in</value>
+          <value>compact</value>
+          <value>marker</value>
+          <value>table</value>
+          <value>inline-table</value>
+          <value>table-row-group</value>
+          <value>table-header-group</value>
+          <value>table-footer-group</value>
+          <value>table-row</value>
+          <value>table-column-group</value>
+          <value>table-column</value>
+          <value>table-cell</value>
+          <value>table-caption</value>
+          <value>none</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="filter">
+        <ref name="FilterValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="image-rendering">
+        <choice>
+          <value>auto</value>
+          <value>optimizeSpeed</value>
+          <value>optimizeQuality</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mask">
+        <ref name="MaskValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="opacity">
+        <ref name="OpacityValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointer-events">
+        <choice>
+          <value>visiblePainted</value>
+          <value>visibleFill</value>
+          <value>visibleStroke</value>
+          <value>visible</value>
+          <value>painted</value>
+          <value>fill</value>
+          <value>stroke</value>
+          <value>all</value>
+          <value>none</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="shape-rendering">
+        <choice>
+          <value>auto</value>
+          <value>optimizeSpeed</value>
+          <value>crispEdges</value>
+          <value>geometricPrecision</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text-rendering">
+        <choice>
+          <value>auto</value>
+          <value>optimizeSpeed</value>
+          <value>optimizeLegibility</value>
+          <value>geometricPrecision</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="visibility">
+        <choice>
+          <value>visible</value>
+          <value>hidden</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-Images">
+    <a:documentation>
+      The following presentation attributes apply to 'image' elements.
+    </a:documentation>
+    <optional>
+      <attribute name="color-profile"/>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-LightingEffects">
+    <a:documentation>
+      The following presentation attributes apply to 'feDiffuseLighting'
+      and 'feSpecularLighting' elements.
+    </a:documentation>
+    <optional>
+      <attribute name="lighting-color">
+        <ref name="SVGColor"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-Markers">
+    <a:documentation>
+      The following presentation attributes apply to marker operations.
+    </a:documentation>
+    <optional>
+      <attribute name="marker-start">
+        <ref name="MarkerValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="marker-mid">
+        <ref name="MarkerValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="marker-end">
+        <ref name="MarkerValue"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-TextContentElements">
+    <a:documentation>
+      The following presentation attributes apply to text content elements.
+    </a:documentation>
+    <optional>
+      <attribute name="alignment-baseline">
+        <choice>
+          <value>baseline</value>
+          <value>top</value>
+          <value>before-edge</value>
+          <value>text-top</value>
+          <value>text-before-edge</value>
+          <value>middle</value>
+          <value>bottom</value>
+          <value>after-edge</value>
+          <value>text-bottom</value>
+          <value>text-after-edge</value>
+          <value>ideographic</value>
+          <value>lower</value>
+          <value>hanging</value>
+          <value>mathematical</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="baseline-shift">
+        <ref name="BaselineShiftValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="direction">
+        <choice>
+          <value>ltr</value>
+          <value>rtl</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dominant-baseline">
+        <choice>
+          <value>auto</value>
+          <value>autosense-script</value>
+          <value>no-change</value>
+          <value>reset</value>
+          <value>ideographic</value>
+          <value>lower</value>
+          <value>hanging</value>
+          <value>mathematical</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="glyph-orientation-horizontal">
+        <ref name="GlyphOrientationHorizontalValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="glyph-orientation-vertical">
+        <ref name="GlyphOrientationVerticalValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kerning">
+        <ref name="KerningValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="letter-spacing">
+        <ref name="SpacingValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text-anchor">
+        <choice>
+          <value>start</value>
+          <value>middle</value>
+          <value>end</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text-decoration">
+        <ref name="TextDecorationValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="unicode-bidi">
+        <choice>
+          <value>normal</value>
+          <value>embed</value>
+          <value>bidi-override</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="word-spacing">
+        <ref name="SpacingValue"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-TextElements">
+    <a:documentation>
+      The following presentation attributes apply to 'text' elements.
+    </a:documentation>
+    <optional>
+      <attribute name="writing-mode">
+        <choice>
+          <value>lr-tb</value>
+          <value>rl-tb</value>
+          <value>tb-rl</value>
+          <value>lr</value>
+          <value>rl</value>
+          <value>tb</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-Viewports">
+    <a:documentation>
+      The following presentation attributes apply to elements that
+      establish viewports.
+    </a:documentation>
+    <optional>
+      <attribute name="clip">
+        <ref name="ClipValue"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="overflow">
+        <choice>
+          <value>visible</value>
+          <value>hidden</value>
+          <value>scroll</value>
+          <value>auto</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="PresentationAttributes-All">
+    <a:documentation>
+      The following represents the complete list of presentation attributes.
+    </a:documentation>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-Containers"/>
+    <ref name="PresentationAttributes-feFlood"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Gradients"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-Images"/>
+    <ref name="PresentationAttributes-LightingEffects"/>
+    <ref name="PresentationAttributes-Markers"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="PresentationAttributes-TextElements"/>
+    <ref name="PresentationAttributes-Viewports"/>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    PATTERN DECLARATIONS: schema extensions 
+    ==============================================================
+  </a:documentation>
+
+  <define name="ceExt">
+    <a:documentation>
+      Allow for extending the schema for container and graphics elements
+    </a:documentation>
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="geExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Document Structure 
+    ==============================================================
+  </a:documentation>
+
+  <define name="svgExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="svg">
+    <element name="svg">
+      <ref name="attlist-svg"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="svgExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-svg" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="zoomAndPan" a:defaultValue="magnify">
+        <choice>
+          <value>disable</value>
+          <value>magnify</value>
+        </choice>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <ref name="documentEvents"/>
+    <optional>
+      <attribute name="version" a:defaultValue="1.0">
+        <value type="string">1.0</value>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="contentScriptType" a:defaultValue="text/ecmascript">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="contentStyleType" a:defaultValue="text/css">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="gExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="g">
+    <element name="g">
+      <ref name="attlist-g"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="gExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-g" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+  </define>
+
+  <define name="defsExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="defs">
+    <element name="defs">
+      <ref name="attlist-defs"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="defsExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-defs" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+  </define>
+
+  <define name="descExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="desc">
+    <element name="desc">
+      <ref name="attlist-desc"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="foreignElement"/>
+          <ref name="descExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-desc" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="StructuredText"/>
+  </define>
+
+  <define name="titleExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="title">
+    <element name="title">
+      <ref name="attlist-title"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="foreignElement"/>
+          <ref name="titleExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-title" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="StructuredText"/>
+  </define>
+
+  <define name="symbolExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="symbol">
+    <element name="symbol">
+      <ref name="attlist-symbol"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="symbolExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-symbol" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+  </define>
+
+  <define name="useExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="use">
+    <element name="use">
+      <ref name="attlist-use"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="useExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-use" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrsEmbed"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="imageExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="image">
+    <element name="image">
+      <ref name="attlist-image"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="imageExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-image" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrsEmbed"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-Images"/>
+    <ref name="PresentationAttributes-Viewports"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <attribute name="width">
+      <ref name="Length"/>
+    </attribute>
+    <attribute name="height">
+      <ref name="Length"/>
+    </attribute>
+  </define>
+
+  <define name="switchExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="switch">
+    <element name="switch">
+      <ref name="attlist-switch"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="foreignObject"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="ceExt"/>
+          <ref name="switchExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-switch" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Styling 
+    ==============================================================
+  </a:documentation>
+
+  <define name="style">
+    <element name="style">
+      <ref name="attlist-style"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="attlist-style" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="xml:space" a:defaultValue="preserve">
+        <value>preserve</value>
+      </attribute>
+    </optional>
+    <attribute name="type">
+      <ref name="ContentType"/>
+    </attribute>
+    <optional>
+      <attribute name="media">
+        <ref name="MediaDesc"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Paths
+    ==============================================================
+  </a:documentation>
+
+  <define name="pathExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="path">
+    <element name="path">
+      <ref name="attlist-path"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="pathExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-path" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-Markers"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <attribute name="d">
+      <ref name="PathData"/>
+    </attribute>
+    <optional>
+      <attribute name="pathLength">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Basic Shapes
+    ==============================================================
+  </a:documentation>
+
+  <define name="rectExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="rect">
+    <element name="rect">
+      <ref name="attlist-rect"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="rectExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-rect" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <attribute name="width">
+      <ref name="Length"/>
+    </attribute>
+    <attribute name="height">
+      <ref name="Length"/>
+    </attribute>
+    <optional>
+      <attribute name="rx">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ry">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="circleExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="circle">
+    <element name="circle">
+      <ref name="attlist-circle"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="circleExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-circle" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="cx">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cy">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <attribute name="r">
+      <ref name="Length"/>
+    </attribute>
+  </define>
+
+  <define name="ellipseExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="ellipse">
+    <element name="ellipse">
+      <ref name="attlist-ellipse"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="ellipseExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-ellipse" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="cx">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cy">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <attribute name="rx">
+      <ref name="Length"/>
+    </attribute>
+    <attribute name="ry">
+      <ref name="Length"/>
+    </attribute>
+  </define>
+
+  <define name="lineExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="line">
+    <element name="line">
+      <ref name="attlist-line"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="lineExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-line" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-Markers"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x1">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y1">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x2">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y2">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="polylineExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="polyline">
+    <element name="polyline">
+      <ref name="attlist-polyline"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="polylineExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-polyline" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-Markers"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <attribute name="points">
+      <ref name="Points"/>
+    </attribute>
+  </define>
+
+  <define name="polygonExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="polygon">
+    <element name="polygon">
+      <ref name="attlist-polygon"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="polygonExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-polygon" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-Markers"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <attribute name="points">
+      <ref name="Points"/>
+    </attribute>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Text
+    ==============================================================
+  </a:documentation>
+
+  <define name="textExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="text">
+    <element name="text">
+      <ref name="attlist-text"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="tspan"/>
+          <ref name="tref"/>
+          <ref name="textPath"/>
+          <ref name="altGlyph"/>
+          <ref name="a"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="geExt"/>
+          <ref name="textExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-text" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="PresentationAttributes-TextElements"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="tspanExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="tspan">
+    <element name="tspan">
+      <ref name="attlist-tspan"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="tspan"/>
+          <ref name="tref"/>
+          <ref name="altGlyph"/>
+          <ref name="a"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+          <ref name="tspanExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-tspan" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="trefExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="tref">
+    <element name="tref">
+      <ref name="attlist-tref"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+          <ref name="trefExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-tref" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="textPathExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="textPath">
+    <element name="textPath">
+      <ref name="attlist-textPath"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="tspan"/>
+          <ref name="tref"/>
+          <ref name="altGlyph"/>
+          <ref name="a"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+          <ref name="textPathExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-textPath" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="langSpaceAttrs"/>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="startOffset">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="method">
+        <choice>
+          <value>align</value>
+          <value>stretch</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spacing">
+        <choice>
+          <value>auto</value>
+          <value>exact</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="altGlyphExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="altGlyph">
+    <element name="altGlyph">
+      <ref name="attlist-altGlyph"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="altGlyphExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-altGlyph" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="glyphRef"/>
+    </optional>
+    <optional>
+      <attribute name="format"/>
+    </optional>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="altGlyphDefExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="altGlyphDef">
+    <element name="altGlyphDef">
+      <ref name="attlist-altGlyphDef"/>
+      <choice>
+        <oneOrMore>
+          <ref name="glyphRef"/>
+        </oneOrMore>
+        <oneOrMore>
+          <ref name="altGlyphItem"/>
+        </oneOrMore>
+        <zeroOrMore>
+          <ref name="altGlyphDefExt"/>
+        </zeroOrMore>
+      </choice>
+    </element>
+  </define>
+
+  <define name="attlist-altGlyphDef" combine="interleave">
+    <ref name="stdAttrs"/>
+  </define>
+
+  <define name="altGlyphItemExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="altGlyphItem">
+    <element name="altGlyphItem">
+      <ref name="attlist-altGlyphItem"/>
+      <choice>
+        <oneOrMore>
+          <ref name="glyphRef"/>
+        </oneOrMore>
+        <ref name="altGlyphItemExt"/>
+      </choice>
+    </element>
+  </define>
+
+  <define name="attlist-altGlyphItem" combine="interleave">
+    <ref name="stdAttrs"/>
+  </define>
+
+  <define name="glyphRef">
+    <element name="glyphRef">
+      <ref name="attlist-glyphRef"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="attlist-glyphRef" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <optional>
+      <attribute name="glyphRef"/>
+    </optional>
+    <optional>
+      <attribute name="format"/>
+    </optional>
+    <optional>
+      <attribute name="x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Painting: Filling, Stroking and
+    Marker Symbols 
+    ==============================================================
+  </a:documentation>
+
+  <define name="markerExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="marker">
+    <element name="marker">
+      <ref name="attlist-marker"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="markerExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-marker" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="refX">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="refY">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="markerUnits">
+        <choice>
+          <value>strokeWidth</value>
+          <value>userSpaceOnUse</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="markerWidth">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="markerHeight">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="orient"/>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Color 
+    ==============================================================
+  </a:documentation>
+
+  <define name="color-profile">
+    <element name="color-profile">
+      <ref name="attlist-color-profile"/>
+      <ref name="descTitleMetadata"/>
+    </element>
+  </define>
+
+  <define name="attlist-color-profile" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="local"/>
+    </optional>
+    <attribute name="name"/>
+    <optional>
+      <attribute name="rendering-intent" a:defaultValue="auto">
+        <choice>
+          <value>auto</value>
+          <value>perceptual</value>
+          <value>relative-colorimetric</value>
+          <value>saturation</value>
+          <value>absolute-colorimetric</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Gradients and Patterns 
+    ==============================================================
+  </a:documentation>
+
+  <define name="linearGradientExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="linearGradient">
+    <element name="linearGradient">
+      <ref name="attlist-linearGradient"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="stop"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateTransform"/>
+          <ref name="linearGradientExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-linearGradient" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-Gradients"/>
+    <optional>
+      <attribute name="gradientUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="gradientTransform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x1">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y1">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x2">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y2">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spreadMethod">
+        <choice>
+          <value>pad</value>
+          <value>reflect</value>
+          <value>repeat</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="radialGradientExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="radialGradient">
+    <element name="radialGradient">
+      <ref name="attlist-radialGradient"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="stop"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateTransform"/>
+          <ref name="radialGradientExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-radialGradient" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-Gradients"/>
+    <optional>
+      <attribute name="gradientUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="gradientTransform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cx">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cy">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="r">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fx">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fy">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spreadMethod">
+        <choice>
+          <value>pad</value>
+          <value>reflect</value>
+          <value>repeat</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="stopExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="stop">
+    <element name="stop">
+      <ref name="attlist-stop"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+          <ref name="stopExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-stop" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-Gradients"/>
+    <attribute name="offset">
+      <ref name="NumberOrPercentage"/>
+    </attribute>
+  </define>
+
+  <define name="patternExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="pattern">
+    <element name="pattern">
+      <ref name="attlist-pattern"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="patternExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-pattern" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="patternUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="patternContentUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="patternTransform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Clipping, Masking and Compositing 
+    ==============================================================
+  </a:documentation>
+
+  <define name="clipPathExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="clipPath">
+    <element name="clipPath">
+      <ref name="attlist-clipPath"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="ceExt"/>
+          <ref name="clipPathExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-clipPath" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FillStroke"/>
+    <ref name="PresentationAttributes-FontSpecification"/>
+    <ref name="PresentationAttributes-Graphics"/>
+    <ref name="PresentationAttributes-TextContentElements"/>
+    <ref name="PresentationAttributes-TextElements"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clipPathUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="maskExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="mask">
+    <element name="mask">
+      <ref name="attlist-mask"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="maskExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-mask" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="maskUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="maskContentUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Filter Effects
+    ==============================================================
+  </a:documentation>
+
+  <define name="filterExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="filter">
+    <element name="filter">
+      <ref name="attlist-filter"/>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="feBlend"/>
+          <ref name="feFlood"/>
+          <ref name="feColorMatrix"/>
+          <ref name="feComponentTransfer"/>
+          <ref name="feComposite"/>
+          <ref name="feConvolveMatrix"/>
+          <ref name="feDiffuseLighting"/>
+          <ref name="feDisplacementMap"/>
+          <ref name="feGaussianBlur"/>
+          <ref name="feImage"/>
+          <ref name="feMerge"/>
+          <ref name="feMorphology"/>
+          <ref name="feOffset"/>
+          <ref name="feSpecularLighting"/>
+          <ref name="feTile"/>
+          <ref name="feTurbulence"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="filterExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-filter" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="filterUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="primitiveUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="filterRes">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="filter_primitive_attributes">
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="result"/>
+    </optional>
+  </define>
+
+  <define name="filter_primitive_attributes_with_in">
+    <ref name="filter_primitive_attributes"/>
+    <optional>
+      <attribute name="in"/>
+    </optional>
+  </define>
+
+  <define name="feDistantLight">
+    <element name="feDistantLight">
+      <ref name="attlist-feDistantLight"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feDistantLight" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="azimuth">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="elevation">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="fePointLight">
+    <element name="fePointLight">
+      <ref name="attlist-fePointLight"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-fePointLight" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="z">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feSpotLight">
+    <element name="feSpotLight">
+      <ref name="attlist-feSpotLight"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feSpotLight" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="z">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointsAtX">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointsAtY">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointsAtZ">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="specularExponent">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="limitingConeAngle">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feBlend">
+    <element name="feBlend">
+      <ref name="attlist-feBlend"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feBlend" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <attribute name="in2"/>
+    <optional>
+      <attribute name="mode" a:defaultValue="normal">
+        <choice>
+          <value>normal</value>
+          <value>multiply</value>
+          <value>screen</value>
+          <value>darken</value>
+          <value>lighten</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feColorMatrix">
+    <element name="feColorMatrix">
+      <ref name="attlist-feColorMatrix"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feColorMatrix" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <optional>
+      <attribute name="type" a:defaultValue="matrix">
+        <choice>
+          <value>matrix</value>
+          <value>saturate</value>
+          <value>hueRotate</value>
+          <value>luminanceToAlpha</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="values"/>
+    </optional>
+  </define>
+
+  <define name="feComponentTransfer">
+    <element name="feComponentTransfer">
+      <ref name="attlist-feComponentTransfer"/>
+      <optional>
+        <ref name="feFuncR"/>
+      </optional>
+      <optional>
+        <ref name="feFuncG"/>
+      </optional>
+      <optional>
+        <ref name="feFuncB"/>
+      </optional>
+      <optional>
+        <ref name="feFuncA"/>
+      </optional>
+    </element>
+  </define>
+
+  <define name="attlist-feComponentTransfer" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+  </define>
+
+  <define name="component_transfer_function_attributes">
+    <attribute name="type">
+      <choice>
+        <value>identity</value>
+        <value>table</value>
+        <value>discrete</value>
+        <value>linear</value>
+        <value>gamma</value>
+      </choice>
+    </attribute>
+    <optional>
+      <attribute name="tableValues"/>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intercept">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="amplitude">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="exponent">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="offset">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feFuncR">
+    <element name="feFuncR">
+      <ref name="attlist-feFuncR"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feFuncR" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="component_transfer_function_attributes"/>
+  </define>
+
+  <define name="feFuncG">
+    <element name="feFuncG">
+      <ref name="attlist-feFuncG"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feFuncG" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="component_transfer_function_attributes"/>
+  </define>
+
+  <define name="feFuncB">
+    <element name="feFuncB">
+      <ref name="attlist-feFuncB"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feFuncB" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="component_transfer_function_attributes"/>
+  </define>
+
+  <define name="feFuncA">
+    <element name="feFuncA">
+      <ref name="attlist-feFuncA"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feFuncA" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="component_transfer_function_attributes"/>
+  </define>
+
+  <define name="feComposite">
+    <element name="feComposite">
+      <ref name="attlist-feComposite"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feComposite" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <attribute name="in2"/>
+    <optional>
+      <attribute name="operator" a:defaultValue="over">
+        <choice>
+          <value>over</value>
+          <value>in</value>
+          <value>out</value>
+          <value>atop</value>
+          <value>xor</value>
+          <value>arithmetic</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k2">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k3">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k4">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feConvolveMatrix">
+    <element name="feConvolveMatrix">
+      <ref name="attlist-feConvolveMatrix"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feConvolveMatrix" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <attribute name="order">
+      <ref name="NumberOptionalNumber"/>
+    </attribute>
+    <attribute name="kernelMatrix"/>
+    <optional>
+      <attribute name="divisor">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="bias">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="targetX">
+        <ref name="Integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="targetY">
+        <ref name="Integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="edgeMode" a:defaultValue="duplicate">
+        <choice>
+          <value>duplicate</value>
+          <value>wrap</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kernelUnitLength">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAlpha">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feDiffuseLighting">
+    <element name="feDiffuseLighting">
+      <ref name="attlist-feDiffuseLighting"/>
+      <choice>
+        <ref name="feDistantLight"/>
+        <ref name="fePointLight"/>
+        <ref name="feSpotLight"/>
+      </choice>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feDiffuseLighting" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="PresentationAttributes-LightingEffects"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <optional>
+      <attribute name="surfaceScale">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="diffuseConstant">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kernelUnitLength">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feDisplacementMap">
+    <element name="feDisplacementMap">
+      <ref name="attlist-feDisplacementMap"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feDisplacementMap" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <attribute name="in2"/>
+    <optional>
+      <attribute name="scale">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xChannelSelector" a:defaultValue="A">
+        <choice>
+          <value>R</value>
+          <value>G</value>
+          <value>B</value>
+          <value>A</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="yChannelSelector" a:defaultValue="A">
+        <choice>
+          <value>R</value>
+          <value>G</value>
+          <value>B</value>
+          <value>A</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feFlood">
+    <element name="feFlood">
+      <ref name="attlist-feFlood"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feFlood" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-feFlood"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+  </define>
+
+  <define name="feGaussianBlur">
+    <element name="feGaussianBlur">
+      <ref name="attlist-feGaussianBlur"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feGaussianBlur" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <optional>
+      <attribute name="stdDeviation">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feImage">
+    <element name="feImage">
+      <ref name="attlist-feImage"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateTransform"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feImage" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrsEmbed"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <ref name="filter_primitive_attributes"/>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feMerge">
+    <element name="feMerge">
+      <ref name="attlist-feMerge"/>
+      <zeroOrMore>
+        <ref name="feMergeNode"/>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feMerge" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes"/>
+  </define>
+
+  <define name="feMergeNode">
+    <element name="feMergeNode">
+      <ref name="attlist-feMergeNode"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feMergeNode" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="in"/>
+    </optional>
+  </define>
+
+  <define name="feMorphology">
+    <element name="feMorphology">
+      <ref name="attlist-feMorphology"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feMorphology" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <optional>
+      <attribute name="operator" a:defaultValue="erode">
+        <choice>
+          <value>erode</value>
+          <value>dilate</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="radius">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feOffset">
+    <element name="feOffset">
+      <ref name="attlist-feOffset"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feOffset" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <optional>
+      <attribute name="dx">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feSpecularLighting">
+    <element name="feSpecularLighting">
+      <ref name="attlist-feSpecularLighting"/>
+      <choice>
+        <ref name="feDistantLight"/>
+        <ref name="fePointLight"/>
+        <ref name="feSpotLight"/>
+      </choice>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateColor"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feSpecularLighting" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-Color"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="PresentationAttributes-LightingEffects"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+    <optional>
+      <attribute name="surfaceScale">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="specularConstant">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="specularExponent">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kernelUnitLength">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="feTile">
+    <element name="feTile">
+      <ref name="attlist-feTile"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feTile" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes_with_in"/>
+  </define>
+
+  <define name="feTurbulence">
+    <element name="feTurbulence">
+      <ref name="attlist-feTurbulence"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="animate"/>
+          <ref name="set"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-feTurbulence" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="PresentationAttributes-FilterPrimitives"/>
+    <ref name="filter_primitive_attributes"/>
+    <optional>
+      <attribute name="baseFrequency">
+        <ref name="NumberOptionalNumber"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numOctaves">
+        <ref name="Integer"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="seed">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stitchTiles" a:defaultValue="noStitch">
+        <choice>
+          <value>stitch</value>
+          <value>noStitch</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="type" a:defaultValue="turbulence">
+        <choice>
+          <value>fractalNoise</value>
+          <value>turbulence</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Interactivity 
+    ==============================================================
+  </a:documentation>
+
+  <define name="cursor">
+    <element name="cursor">
+      <ref name="attlist-cursor"/>
+      <ref name="descTitleMetadata"/>
+    </element>
+  </define>
+
+  <define name="attlist-cursor" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Linking
+    ==============================================================
+  </a:documentation>
+
+  <define name="aExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="a">
+    <element name="a">
+      <ref name="attlist-a"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="ceExt"/>
+          <ref name="aExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-a" combine="interleave">
+    <ref name="stdAttrs"/>
+    <empty/>
+    <optional>
+      <attribute name="xlink:type" a:defaultValue="simple">
+        <value>simple</value>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:role">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:arcrole">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:title"/>
+    </optional>
+    <optional>
+      <attribute name="xlink:show" a:defaultValue="replace">
+        <choice>
+          <value>new</value>
+          <value>replace</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xlink:actuate" a:defaultValue="onRequest">
+        <value>onRequest</value>
+      </attribute>
+    </optional>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="target">
+        <ref name="LinkTarget"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="viewExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="view">
+    <element name="view">
+      <ref name="attlist-view"/>
+      <interleave>
+        <ref name="descTitleMetadata"/>
+        <zeroOrMore>
+          <ref name="viewExt"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="attlist-view" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="zoomAndPan" a:defaultValue="magnify">
+        <choice>
+          <value>disable</value>
+          <value>magnify</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="viewTarget"/>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Scripting 
+    ==============================================================
+  </a:documentation>
+
+  <define name="script">
+    <element name="script">
+      <ref name="attlist-script"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="attlist-script" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <attribute name="type">
+      <ref name="ContentType"/>
+    </attribute>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Animation 
+    ==============================================================
+  </a:documentation>
+
+  <define name="animElementAttrs">
+    <ref name="xlinkRefAttrs"/>
+    <optional>
+      <attribute name="xlink:href">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="animAttributeAttrs">
+    <attribute name="attributeName"/>
+    <optional>
+      <attribute name="attributeType"/>
+    </optional>
+  </define>
+
+  <define name="animTimingAttrs">
+    <optional>
+      <attribute name="begin"/>
+    </optional>
+    <optional>
+      <attribute name="dur"/>
+    </optional>
+    <optional>
+      <attribute name="end"/>
+    </optional>
+    <optional>
+      <attribute name="min"/>
+    </optional>
+    <optional>
+      <attribute name="max"/>
+    </optional>
+    <optional>
+      <attribute name="restart" a:defaultValue="always">
+        <choice>
+          <value>always</value>
+          <value>never</value>
+          <value>whenNotActive</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="repeatCount"/>
+    </optional>
+    <optional>
+      <attribute name="repeatDur"/>
+    </optional>
+    <optional>
+      <attribute name="fill" a:defaultValue="remove">
+        <choice>
+          <value>remove</value>
+          <value>freeze</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="animValueAttrs">
+    <optional>
+      <attribute name="calcMode" a:defaultValue="linear">
+        <choice>
+          <value>discrete</value>
+          <value>linear</value>
+          <value>paced</value>
+          <value>spline</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="values"/>
+    </optional>
+    <optional>
+      <attribute name="keyTimes"/>
+    </optional>
+    <optional>
+      <attribute name="keySplines"/>
+    </optional>
+    <optional>
+      <attribute name="from"/>
+    </optional>
+    <optional>
+      <attribute name="to"/>
+    </optional>
+    <optional>
+      <attribute name="by"/>
+    </optional>
+  </define>
+
+  <define name="animAdditionAttrs">
+    <optional>
+      <attribute name="additive" a:defaultValue="replace">
+        <choice>
+          <value>replace</value>
+          <value>sum</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accumulate" a:defaultValue="none">
+        <choice>
+          <value>none</value>
+          <value>sum</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="animateExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="animate">
+    <element name="animate">
+      <ref name="attlist-animate"/>
+      <interleave>
+        <ref name="descTitleMetadata"/>
+        <zeroOrMore>
+          <ref name="animateExt"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="attlist-animate" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <ref name="animationEvents"/>
+    <ref name="animElementAttrs"/>
+    <ref name="animAttributeAttrs"/>
+    <ref name="animTimingAttrs"/>
+    <ref name="animValueAttrs"/>
+    <ref name="animAdditionAttrs"/>
+  </define>
+
+  <define name="setExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="set">
+    <element name="set">
+      <ref name="attlist-set"/>
+      <interleave>
+        <ref name="descTitleMetadata"/>
+        <zeroOrMore>
+          <ref name="setExt"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="attlist-set" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <ref name="animationEvents"/>
+    <ref name="animElementAttrs"/>
+    <ref name="animAttributeAttrs"/>
+    <ref name="animTimingAttrs"/>
+    <optional>
+      <attribute name="to"/>
+    </optional>
+  </define>
+
+  <define name="animateMotionExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="animateMotion">
+    <element name="animateMotion">
+      <ref name="attlist-animateMotion"/>
+      <zeroOrMore>
+        <ref name="animateMotionExt"/>
+      </zeroOrMore>
+      <ref name="descTitleMetadata"/>
+      <zeroOrMore>
+        <ref name="animateMotionExt"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="mpath"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="animateMotionExt"/>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-animateMotion" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <ref name="animationEvents"/>
+    <ref name="animElementAttrs"/>
+    <ref name="animTimingAttrs"/>
+    <optional>
+      <attribute name="calcMode" a:defaultValue="paced">
+        <choice>
+          <value>discrete</value>
+          <value>linear</value>
+          <value>paced</value>
+          <value>spline</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="values"/>
+    </optional>
+    <optional>
+      <attribute name="keyTimes"/>
+    </optional>
+    <optional>
+      <attribute name="keySplines"/>
+    </optional>
+    <optional>
+      <attribute name="from"/>
+    </optional>
+    <optional>
+      <attribute name="to"/>
+    </optional>
+    <optional>
+      <attribute name="by"/>
+    </optional>
+    <ref name="animAdditionAttrs"/>
+    <optional>
+      <attribute name="path"/>
+    </optional>
+    <optional>
+      <attribute name="keyPoints"/>
+    </optional>
+    <optional>
+      <attribute name="rotate"/>
+    </optional>
+    <optional>
+      <attribute name="origin"/>
+    </optional>
+  </define>
+
+  <define name="mpathExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="mpath">
+    <element name="mpath">
+      <ref name="attlist-mpath"/>
+      <interleave>
+        <ref name="descTitleMetadata"/>
+        <zeroOrMore>
+          <ref name="mpathExt"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="attlist-mpath" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="animateColorExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="animateColor">
+    <element name="animateColor">
+      <ref name="attlist-animateColor"/>
+      <interleave>
+        <ref name="descTitleMetadata"/>
+        <zeroOrMore>
+          <ref name="animateColorExt"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="attlist-animateColor" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <ref name="animationEvents"/>
+    <ref name="animElementAttrs"/>
+    <ref name="animAttributeAttrs"/>
+    <ref name="animTimingAttrs"/>
+    <ref name="animValueAttrs"/>
+    <ref name="animAdditionAttrs"/>
+  </define>
+
+  <define name="animateTransformExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="animateTransform">
+    <element name="animateTransform">
+      <ref name="attlist-animateTransform"/>
+      <interleave>
+        <ref name="descTitleMetadata"/>
+        <zeroOrMore>
+          <ref name="animateTransformExt"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="attlist-animateTransform" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <ref name="animationEvents"/>
+    <ref name="animElementAttrs"/>
+    <ref name="animAttributeAttrs"/>
+    <ref name="animTimingAttrs"/>
+    <ref name="animValueAttrs"/>
+    <ref name="animAdditionAttrs"/>
+    <optional>
+      <attribute name="type" a:defaultValue="translate">
+        <choice>
+          <value>translate</value>
+          <value>scale</value>
+          <value>rotate</value>
+          <value>skewX</value>
+          <value>skewY</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Fonts 
+    ==============================================================
+  </a:documentation>
+
+  <define name="fontExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="font">
+    <element name="font">
+      <ref name="attlist-font"/>
+      <ref name="descTitleMetadata"/>
+      <ref name="font-face"/>
+      <ref name="missing-glyph"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="glyph"/>
+          <ref name="hkern"/>
+          <ref name="vkern"/>
+          <ref name="fontExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-font" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="horiz-origin-x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="horiz-origin-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <attribute name="horiz-adv-x">
+      <ref name="Number"/>
+    </attribute>
+    <optional>
+      <attribute name="vert-origin-x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-adv-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="glyphExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="glyph">
+    <element name="glyph">
+      <ref name="attlist-glyph"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="glyphExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-glyph" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="unicode"/>
+    </optional>
+    <optional>
+      <attribute name="glyph-name"/>
+    </optional>
+    <optional>
+      <attribute name="d">
+        <ref name="PathData"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="orientation"/>
+    </optional>
+    <optional>
+      <attribute name="arabic-form"/>
+    </optional>
+    <optional>
+      <attribute name="lang">
+        <ref name="LanguageCodes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="horiz-adv-x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-adv-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="missing-glyphExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="missing-glyph">
+    <element name="missing-glyph">
+      <ref name="attlist-missing-glyph"/>
+      <zeroOrMore>
+        <choice>
+          <ref name="desc"/>
+          <ref name="title"/>
+          <ref name="metadata"/>
+          <ref name="defs"/>
+          <ref name="path"/>
+          <ref name="text"/>
+          <ref name="rect"/>
+          <ref name="circle"/>
+          <ref name="ellipse"/>
+          <ref name="line"/>
+          <ref name="polyline"/>
+          <ref name="polygon"/>
+          <ref name="use"/>
+          <ref name="image"/>
+          <ref name="svg"/>
+          <ref name="g"/>
+          <ref name="view"/>
+          <ref name="switch"/>
+          <ref name="a"/>
+          <ref name="altGlyphDef"/>
+          <ref name="script"/>
+          <ref name="style"/>
+          <ref name="symbol"/>
+          <ref name="marker"/>
+          <ref name="clipPath"/>
+          <ref name="mask"/>
+          <ref name="linearGradient"/>
+          <ref name="radialGradient"/>
+          <ref name="pattern"/>
+          <ref name="filter"/>
+          <ref name="cursor"/>
+          <ref name="font"/>
+          <ref name="animate"/>
+          <ref name="set"/>
+          <ref name="animateMotion"/>
+          <ref name="animateColor"/>
+          <ref name="animateTransform"/>
+          <ref name="color-profile"/>
+          <ref name="font-face"/>
+          <ref name="missing-glyphExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-missing-glyph" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="d">
+        <ref name="PathData"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="horiz-adv-x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-x">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-adv-y">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="hkern">
+    <element name="hkern">
+      <ref name="attlist-hkern"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="attlist-hkern" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="u1"/>
+    </optional>
+    <optional>
+      <attribute name="g1"/>
+    </optional>
+    <optional>
+      <attribute name="u2"/>
+    </optional>
+    <optional>
+      <attribute name="g2"/>
+    </optional>
+    <attribute name="k">
+      <ref name="Number"/>
+    </attribute>
+  </define>
+
+  <define name="vkern">
+    <element name="vkern">
+      <ref name="attlist-vkern"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="attlist-vkern" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="u1"/>
+    </optional>
+    <optional>
+      <attribute name="g1"/>
+    </optional>
+    <optional>
+      <attribute name="u2"/>
+    </optional>
+    <optional>
+      <attribute name="g2"/>
+    </optional>
+    <attribute name="k">
+      <ref name="Number"/>
+    </attribute>
+  </define>
+
+  <define name="font-face">
+    <element name="font-face">
+      <ref name="attlist-font-face"/>
+      <ref name="descTitleMetadata"/>
+      <optional>
+        <ref name="font-face-src"/>
+      </optional>
+      <optional>
+        <ref name="definition-src"/>
+      </optional>
+    </element>
+  </define>
+
+  <define name="attlist-font-face" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="font-family"/>
+    </optional>
+    <optional>
+      <attribute name="font-style"/>
+    </optional>
+    <optional>
+      <attribute name="font-variant"/>
+    </optional>
+    <optional>
+      <attribute name="font-weight"/>
+    </optional>
+    <optional>
+      <attribute name="font-stretch"/>
+    </optional>
+    <optional>
+      <attribute name="font-size"/>
+    </optional>
+    <optional>
+      <attribute name="unicode-range"/>
+    </optional>
+    <optional>
+      <attribute name="units-per-em">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="panose-1"/>
+    </optional>
+    <optional>
+      <attribute name="stemv">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stemh">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cap-height">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x-height">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accent-height">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ascent">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="descent">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="widths"/>
+    </optional>
+    <optional>
+      <attribute name="bbox"/>
+    </optional>
+    <optional>
+      <attribute name="ideographic">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="alphabetic">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mathematical">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="hanging">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-ideographic">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-alphabetic">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-mathematical">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-hanging">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="underline-position">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="underline-thickness">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="strikethrough-position">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="strikethrough-thickness">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="overline-position">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="overline-thickness">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="font-face-src">
+    <element name="font-face-src">
+      <ref name="attlist-font-face-src"/>
+      <oneOrMore>
+        <choice>
+          <ref name="font-face-uri"/>
+          <ref name="font-face-name"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-font-face-src" combine="interleave">
+    <ref name="stdAttrs"/>
+  </define>
+
+  <define name="font-face-uri">
+    <element name="font-face-uri">
+      <ref name="attlist-font-face-uri"/>
+      <zeroOrMore>
+        <ref name="font-face-format"/>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-font-face-uri" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+  </define>
+
+  <define name="font-face-format">
+    <element name="font-face-format">
+      <ref name="attlist-font-face-format"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="attlist-font-face-format" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="string"/>
+    </optional>
+  </define>
+
+  <define name="font-face-name">
+    <element name="font-face-name">
+      <ref name="attlist-font-face-name"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="attlist-font-face-name" combine="interleave">
+    <ref name="stdAttrs"/>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+  </define>
+  <define name="definition-src">
+    <element name="definition-src">
+      <ref name="attlist-definition-src"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="attlist-definition-src" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="xlinkRefAttrs"/>
+    <attribute name="xlink:href">
+      <ref name="URI"/>
+    </attribute>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Metadata 
+    ==============================================================
+  </a:documentation>
+
+  <define name="metadataExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="metadata">
+    <element name="metadata">
+      <ref name="attlist-metadata"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="metadataExt"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="attlist-metadata" combine="interleave">
+    <ref name="stdAttrs"/>
+  </define>
+
+  <a:documentation>
+    ==============================================================
+    DECLARATIONS CORRESPONDING TO: Extensibility 
+    ==============================================================
+  </a:documentation>
+
+  <define name="foreignObjectExt">
+    <ref name="foreignElement"/>
+  </define>
+
+  <define name="foreignObject">
+    <element name="foreignObject">
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="svg"/>
+          <ref name="ceExt"/>
+          <ref name="foreignObjectExt"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="attlist-foreignObject"/>
+    </element>
+  </define>
+
+  <define name="attlist-foreignObject" combine="interleave">
+    <ref name="stdAttrs"/>
+    <ref name="testAttrs"/>
+    <ref name="langSpaceAttrs"/>
+    <optional>
+      <attribute name="externalResourcesRequired">
+        <ref name="Boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <ref name="PresentationAttributes-All"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList"/>
+      </attribute>
+    </optional>
+    <ref name="graphicsElementEvents"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate"/>
+      </attribute>
+    </optional>
+    <attribute name="width">
+      <ref name="Length"/>
+    </attribute>
+    <attribute name="height">
+      <ref name="Length"/>
+    </attribute>
+    <ref name="StructuredText"/>
+  </define>
+
+  <define name="foreignElement">
+    <a:documentation>
+      any element in foreign namespace
+    </a:documentation>
+    <element>
+      <anyName>
+        <except>
+          <nsName/>
+        </except>
+      </anyName>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName>
+              <except>
+                <nsName/>
+              </except>
+            </anyName>
+          </attribute>
+          <text/>
+          <ref name="foreignElement"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="foreignAttribute">
+    <a:documentation>
+      any attribute in foreign namespace
+    </a:documentation>
+    <attribute>
+      <anyName>
+        <except>
+          <nsName ns=""/>
+          <nsName/>
+          <nsName ns="http://www.w3.org/XML/1998/namespace"/>
+          <nsName ns="http://www.w3.org/1999/xlink"/>
+        </except>
+      </anyName>
+    </attribute>
+  </define>
+
+  <start combine="choice">
+    <ref name="svg"/>
+  </start>
+
+</grammar>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.w3.org/2002/06/hlink"
+           xmlns="http://www.w3.org/2002/06/hlink"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+    HLink in XML Schema
+    URI: http://www.w3.org/2002/06/hlink.xsd
+
+    This is HLink - a link recongnition mechanism for the XHTML Family.
+
+    Copyright ©2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+      Editor:   Masayasu Ishikawa (mimasa@w3.org)
+      Revision: $Id: hlink.xsd,v 1.9 2002/09/09 07:35:13 mimasa Exp $
+
+    Permission to use, copy, modify and distribute the HLink XML Schema
+    and its accompanying documentation for any purpose and without fee
+    is hereby granted in perpetuity, provided that the above copyright
+    notice and this paragraph appear in all copies.
+    The copyright holders make no  representation about the suitability
+    of this XML Schema for any purpose.
+
+    It is provided "as is" without expressed or implied warranty.
+
+    Revisions:
+    (none)
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+    HLink
+
+    hlinks, hlink
+
+    This HLink XML Schema declares elements and attributes defining
+    HLink, a link recongnition mechanism for the XHTML Family.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+    Datatypes
+
+    defines containers for the following datatypes, many of
+    these imported from other specifications and standards.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:simpleType name="AttName">
+    <xs:annotation>
+      <xs:documentation>
+      the name of an attribute which begins with "@", a la @name
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="@\c+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContentType">
+    <xs:annotation>
+      <xs:documentation>
+      media type, as per [RFC2045]
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="Coords">
+    <xs:annotation>
+      <xs:documentation>
+      comma separated list of lengths
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern
+          value="[-+]?(\d+|\d+(\.\d+)?%)(,\s*[-+]?(\d+|\d+(\.\d+)?%))*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LinkTypes">
+    <xs:annotation>
+      <xs:documentation>
+      space-separated list of link types
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:NMTOKENS"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="Shape">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="default"/>
+      <xs:enumeration value="rect"/>
+      <xs:enumeration value="circle"/>
+      <xs:enumeration value="poly"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="URI">
+    <xs:annotation>
+      <xs:documentation>
+      a Uniform Resource Identifier reference, as per anyURI in
+      XML Schema Part 2 [SCHEMA]
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:anyURI"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="Effect">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="new"/>
+      <xs:enumeration value="replace"/>
+      <xs:enumeration value="embed"/>
+      <xs:enumeration value="submit"/>
+      <xs:enumeration value="map"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Actuate">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="onLoad"/>
+      <xs:enumeration value="onRequest"/>
+      <xs:enumeration value="onRequestSecondary"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OnSuccess">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="processChildren"/>
+      <xs:enumeration value="ignoreChildren"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OnFailure">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="processChildren"/>
+      <xs:enumeration value="ignoreChildren"/>
+      <xs:enumeration value="warn"/>
+      <xs:enumeration value="fail"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="hlinks">
+    <xs:annotation>
+      <xs:documentation>
+      hlinks element
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="hlink"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="hlink">
+    <xs:annotation>
+      <xs:documentation>
+      hlink element
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="hlink.attlist"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:attributeGroup name="hlink.attlist">
+    <xs:attribute name="namespace" use="required" type="URI"/>
+    <xs:attribute name="element" type="xs:NMTOKEN"/>
+    <xs:attribute name="locator">
+      <xs:simpleType>
+	<xs:union memberTypes="URI AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="effect" default="replace">
+      <xs:simpleType>
+	<xs:union memberTypes="Effect AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="actuate" default="onRequest">
+      <xs:simpleType>
+	<xs:union memberTypes="Actuate AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="replacement"/>
+    <xs:attribute name="role">
+      <xs:simpleType>
+	<xs:union memberTypes="LinkTypes AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="reverseRole">
+      <xs:simpleType>
+	<xs:union memberTypes="LinkTypes AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="shape" default="default">
+      <xs:simpleType>
+	<xs:union memberTypes="Shape AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="coords">
+      <xs:simpleType>
+	<xs:union memberTypes="Coords AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="arcrole">
+      <xs:simpleType>
+	<xs:union memberTypes="URI AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="label"/>
+    <xs:attribute name="from"/>
+    <xs:attribute name="to"/>
+    <xs:attribute name="mediaType">
+      <xs:simpleType>
+	<xs:union memberTypes="ContentType AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="onSuccess" default="ignoreChildren">
+      <xs:simpleType>
+	<xs:union memberTypes="OnSuccess AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="onFailure" default="warn">
+      <xs:simpleType>
+	<xs:union memberTypes="OnFailure AttName"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attribute name="definition" type="URI"/>
+
+</xs:schema>

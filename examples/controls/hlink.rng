@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         ns="http://www.w3.org/2002/06/hlink"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <start>
+    <choice>
+      <ref name="hlinks"/>
+      <ref name="hlink"/>
+    </choice>
+  </start>
+
+  <a:documentation>
+     HLink in RELAX NG
+     URI: http://www.w3.org/2002/06/hlink.rng
+
+     This is HLink - a link recongnition mechanism for the XHTML Family.
+
+     Copyright ©2002-2003 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+
+       Editor:   Masayasu Ishikawa (mimasa@w3.org)
+       Revision: $Id: hlink.rng,v 1.8 2003/03/13 07:18:07 mimasa Exp $
+
+     Permission to use, copy, modify and distribute the HLink RELAX NG
+     schema and its accompanying documentation for any purpose and
+     without fee is hereby  granted in perpetuity, provided that
+     the above copyright notice and this paragraph appear in all copies.
+     The copyright holders make no  representation about the suitability
+     of this RELAX NG schema for any purpose.
+
+     It is provided "as is" without expressed or implied warranty.
+
+     Revisions:
+     (none)
+  </a:documentation>
+
+  <a:documentation>
+     HLink
+
+     hlinks, hlink
+
+     This HLink RELAX NG schema declares elements and attributes defining
+     HLink, a link recongnition mechanism for the XHTML Family.
+  </a:documentation>
+
+  <a:documentation>
+     Datatypes
+
+     defines containers for the following datatypes, many of
+     these imported from other specifications and standards.
+  </a:documentation>
+
+  <define name="AttName">
+    <a:documentation>
+       An attribute name
+    </a:documentation>
+    <data type="Name"/>
+  </define>
+
+  <define name="ContentTypes">
+    <a:documentation>
+       comma-separated list of media types, as per [RFC2045]
+    </a:documentation>
+    <text/>
+  </define>
+
+  <define name="Coords">
+    <a:documentation>
+       comma separated list of coordinates to use in defining areas
+    </a:documentation>
+    <data type="string">
+      <param name="pattern"
+        >[\-+]?(\d+|\d+(\.\d+)?%)(,\s*[\-+]?(\d+|\d+(\.\d+)?%))*</param>
+    </data>
+  </define>
+
+  <define name="LinkTypes">
+    <a:documentation>
+       space-separated list of link types
+    </a:documentation>
+    <data type="NMTOKENS"/>
+  </define>
+
+  <define name="Shape">
+    <a:documentation>
+       the shape of a region
+    </a:documentation>
+    <choice>
+      <value>default</value>
+      <value>rect</value>
+      <value>circle</value>
+      <value>poly</value>
+    </choice>
+  </define>
+
+  <define name="URI">
+    <a:documentation>
+       a Uniform Resource Identifier reference, as per anyURI in
+       XML Schema Part 2 [SCHEMA]
+    </a:documentation>
+    <data type="anyURI"/>
+  </define>
+
+  <define name="hlinks">
+    <a:documentation>
+       hlinks element
+    </a:documentation>
+    <element name="hlinks">
+      <oneOrMore>
+        <ref name="hlink"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="hlink">
+    <a:documentation>
+       hlink element
+    </a:documentation>
+    <element name="hlink">
+      <ref name="hlink.attlist"/>
+    </element>
+  </define>
+
+  <define name="hlink.attlist">
+    <attribute name="namespace">
+      <ref name="URI"/>
+    </attribute>
+    <optional>
+      <attribute name="element">
+        <data type="Name"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="locator">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="locatorValue">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="effect">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="effectValue" a:defaultValue="replace">
+        <choice>
+          <value>new</value>
+          <value>replace</value>
+          <value>embed</value>
+          <value>submit</value>
+          <value>map</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="actuate">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="actuateValue" a:defaultValue="onRequest">
+        <choice>
+          <value>onLoad</value>
+          <value>onRequest</value>
+          <value>onRequestSecondary</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="replacement">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="replacementValue"/>
+    </optional>
+    <optional>
+      <attribute name="role">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="roleValue">
+        <ref name="LinkTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="shape">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="shapeValue" a:defaultValue="default">
+        <ref name="Shape"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="coords">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="coordsValue">
+        <ref name="Coords"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mediaType">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mediaTypeValue" a:defaultValue="*/*">
+        <ref name="ContentTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onSuccess">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onSuccessValue" a:defaultValue="ignoreChildren">
+        <choice>
+          <value>processChildren</value>
+          <value>ignoreChildren</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onFailure">
+        <ref name="AttName"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onFailureValue" a:defaultValue="warn">
+        <choice>
+          <value>processChildren</value>
+          <value>ignoreChildren</value>
+          <value>warn</value>
+          <value>fail</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="definition">
+    <optional>
+      <attribute name="definition">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

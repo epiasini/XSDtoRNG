@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.w3.org/1999/xlink"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           attributeFormDefault="qualified">
+
+  <xs:attributeGroup name="type-simple">
+    <xs:attribute name="type" fixed="simple">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="simple"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attribute name="href" type="xs:anyURI"/>
+
+  <xs:attribute name="role" type="xs:anyURI"/>
+
+  <xs:attribute name="arcrole" type="xs:anyURI"/>
+
+  <xs:attribute name="title"/>
+
+  <xs:attributeGroup name="show-new-or-replace">
+    <xs:attribute name="show" default="replace" form="qualified">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="new"/>
+          <xs:enumeration value="replace"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="show-embed">
+    <xs:attribute name="show" fixed="embed" form="qualified">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="embed"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="show-other">
+    <xs:attribute name="show" fixed="other" form="qualified">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="other"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="actuate-onLoad">
+    <xs:attribute name="actuate" fixed="onLoad" form="qualified">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="onLoad"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="actuate-onRequest">
+    <xs:attribute name="actuate" fixed="onRequest" form="qualified">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="onRequest"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+</xs:schema>
