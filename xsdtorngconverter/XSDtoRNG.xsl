@@ -41,7 +41,6 @@ knowledge of the CeCILL license and that you accept its terms.
 	<xsl:preserve-space elements="*"/>
 	
 	<xsl:template match="/xs:schema">
-		<?xml-stylesheet type="text/xsl" href="RNGtoHTMLform_standalone.xsl"?>
 		<rng:grammar>
 			<xsl:for-each select="namespace::*">
 				<xsl:if test="local-name() != 'xs'">
