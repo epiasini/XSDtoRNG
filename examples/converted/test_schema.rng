@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" ns="" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+	<rng:start>
+		<rng:ref name="rootmarkup"/>
+	</rng:start>
+	<rng:define name="rootmarkup">
+		<rng:element name="rootmarkup">
+			<a:documentation>Comment describing rootMarkup</a:documentation>
+			<rng:element name="firstmarkupunderroot">
+				<rng:data type="string"/>
+			</rng:element>
+			<rng:element name="secondmarkupunderroot">
+				<rng:choice>
+					<rng:element name="firstchoice">
+						<rng:ref name="fstchoice"/>
+					</rng:element>
+					<rng:element name="secondchoice">
+						<rng:ref name="sndchoice"/>
+					</rng:element>
+				</rng:choice>
+				<rng:attribute name="name">
+					<rng:data type="string"/>
+				</rng:attribute>
+			</rng:element>
+			<rng:attribute name="id">
+				<rng:data type="integer"/>
+			</rng:attribute>
+			<rng:attribute name="type">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:element>
+	</rng:define>
+	<rng:define name="fstchoice">
+		<rng:attribute name="choice">
+			<rng:data type="string"/>
+		</rng:attribute>
+	</rng:define>
+	<rng:define name="sndchoice">
+		<rng:element name="name">
+			<rng:ref name="stringtype"/>
+		</rng:element>
+		<rng:element name="address">
+			<rng:ref name="stringtype"/>
+		</rng:element>
+		<rng:element name="city">
+			<rng:ref name="city"/>
+		</rng:element>
+		<rng:element name="country">
+			<rng:ref name="country"/>
+		</rng:element>
+		<rng:element name="age">
+			<rng:ref name="age"/>
+		</rng:element>
+		<rng:attribute name="choice">
+			<rng:data type="string"/>
+		</rng:attribute>
+	</rng:define>
+	<rng:define name="stringtype">
+		<rng:data type="string"/>
+	</rng:define>
+	<rng:define name="city">
+		<rng:data type="string">
+			<rng:param name="pattern">[a-zA-Z][a-zA-Z][a-zA-Z]</rng:param>
+		</rng:data>
+	</rng:define>
+	<rng:define name="country">
+		<rng:choice>
+			<rng:value>FR</rng:value>
+			<rng:value>GB</rng:value>
+			<rng:value>IT</rng:value>
+		</rng:choice>
+	</rng:define>
+	<rng:define name="age">
+		<rng:data type="integer">
+			<rng:param name="minInclusive">0</rng:param>
+			<rng:param name="maxInclusive">120</rng:param>
+		</rng:data>
+	</rng:define>
+</rng:grammar>
