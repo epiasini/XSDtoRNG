@@ -77,6 +77,38 @@ knowledge of the CeCILL license and that you accept its terms.
 		<xsl:copy-of select="child::node()"/>
 	</xsl:template>
 	
+	<xsl:template match="xs:union">
+		<rng:choice>
+			<xsl:apply-templates select="@memberTypes"/>
+			<xsl:apply-templates/>
+		</rng:choice>
+	</xsl:template>
+	
+	<xsl:template match="@memberTypes">
+		<xsl:call-template name="declareMemberTypes">
+			<xsl:with-param name="memberTypes" select="."/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template name="declareMemberTypes">
+		<xsl:param name="memberTypes"/>
+		<xsl:choose>
+            <xsl:when test="contains($memberTypes, ' ')">
+				<xsl:call-template name="type">
+					<xsl:with-param name="type" select="substring-before($memberTypes, ' ')"/>
+				</xsl:call-template>
+                <xsl:call-template name="declareMemberTypes">
+                    <xsl:with-param name="memberTypes" select="substring-after($memberTypes, ' ')"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+				<xsl:call-template name="type">
+					<xsl:with-param name="type" select="$memberTypes"/>
+				</xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="xs:complexType[@name]|xs:simpleType[@name]|xs:group[@name]|xs:attributeGroup[@name]">
 		<!-- the schemas may be included several times, so it needs a combine attribute
                                      (the attributes are inversed :-) at the transformation) -->
