@@ -90,25 +90,6 @@ knowledge of the CeCILL license and that you accept its terms.
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template name="declareMemberTypes">
-		<xsl:param name="memberTypes"/>
-		<xsl:choose>
-            <xsl:when test="contains($memberTypes, ' ')">
-				<xsl:call-template name="type">
-					<xsl:with-param name="type" select="substring-before($memberTypes, ' ')"/>
-				</xsl:call-template>
-                <xsl:call-template name="declareMemberTypes">
-                    <xsl:with-param name="memberTypes" select="substring-after($memberTypes, ' ')"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-				<xsl:call-template name="type">
-					<xsl:with-param name="type" select="$memberTypes"/>
-				</xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
-	</xsl:template>
-	
 	<xsl:template match="xs:complexType[@name]|xs:simpleType[@name]|xs:group[@name]|xs:attributeGroup[@name]">
 		<!-- the schemas may be included several times, so it needs a combine attribute
                                      (the attributes are inversed :-) at the transformation) -->
@@ -116,7 +97,7 @@ knowledge of the CeCILL license and that you accept its terms.
 			<xsl:apply-templates/>
 		</rng:define>
 	</xsl:template>
-
+    
 	<!-- when finds a ref attribute replace it by its type call (ref name="" or type) -->	
 	<xsl:template match="xs:*[@ref]" mode="content">
 		<xsl:call-template name="type">
@@ -124,31 +105,7 @@ knowledge of the CeCILL license and that you accept its terms.
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="xs:attribute[@name]" mode="content">
-		<rng:attribute name="{@name}">
-			<xsl:apply-templates select="@default" mode="attributeDefaultValue"/>
-			<!-- there can be no type attribute to <xs:attribute>, in this case, the type is defined in 
-                                    a <xs:simpleType> or a <xs:complexType> inside -->
-			<xsl:choose>
-				<xsl:when test="@type">
-					<xsl:call-template name="type">
-						<xsl:with-param name="type" select="@type"/>
-					</xsl:call-template>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</rng:attribute>
-	</xsl:template>
-	
-	<xsl:template match="@default" mode="attributeDefaultValue">
-    	<xsl:attribute name="defaultValue" namespace="http://relaxng.org/ns/compatibility/annotations/1.0">
-    		<xsl:value-of select="."/>
-    	</xsl:attribute>
-	</xsl:template>
-	
-	<!-- the <xs:simpleType> and <xs:complexType without name attribute are ignored -->
+    <!-- the <xs:simpleType> and <xs:complexType without name attribute are ignored -->
 	<xsl:template match="xs:sequence|xs:complexContent|xs:simpleType|xs:complexType">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -158,27 +115,7 @@ knowledge of the CeCILL license and that you accept its terms.
 			<xsl:with-param name="type" select="@base"/>
 		</xsl:call-template>
 	</xsl:template>
-	
-	<xsl:template match="xs:any" mode="content">
-		<rng:element>
-			<rng:anyName/>
-			<rng:text/>
-		</rng:element>
-	</xsl:template>
-	
-	<xsl:template match="xs:anyAttribute" mode="content">
-		<rng:attribute>
-			<rng:anyName/>
-			<rng:text/>
-		</rng:attribute>
-	</xsl:template>
-	
-	<xsl:template match="xs:choice" mode="content">
-		<rng:choice>
-			<xsl:apply-templates/>
-		</rng:choice>
-	</xsl:template>
-	
+    
 	<xsl:template match="xs:element[@name]">
 		<!-- case of root element -->
 		<xsl:choose>
@@ -195,22 +132,7 @@ knowledge of the CeCILL license and that you accept its terms.
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
-	<xsl:template match="xs:element" mode="content">
-		<rng:element name="{@name}">
-			<xsl:choose>
-				<xsl:when test="@type">
-					<xsl:call-template name="type">
-						<xsl:with-param name="type" select="@type"/>
-					</xsl:call-template>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</rng:element>
-	</xsl:template>
-	
+    
 	<xsl:template match="xs:restriction[@base]">
 		<xsl:choose>
 			<xsl:when test="xs:enumeration[@value]">
@@ -253,6 +175,71 @@ knowledge of the CeCILL license and that you accept its terms.
 		<xsl:variable name="schemaLocation" select="substring-before(@schemaLocation, '.xsd')"/>
 		<rng:include href="{$schemaLocation}.rng" ns="{@namespace}"/>
 	</xsl:template>
+    
+	<xsl:template match="@default">
+		<a:documentation>
+            default value is : <xsl:value-of select="."/>
+		</a:documentation>
+	</xsl:template>
+    
+	<xsl:template match="xs:attribute[@name]" mode="content">
+		<rng:attribute name="{@name}">
+			<xsl:apply-templates select="@default" mode="attributeDefaultValue"/>
+			<!-- there can be no type attribute to <xs:attribute>, in this case, the type is defined in 
+                                    a <xs:simpleType> or a <xs:complexType> inside -->
+			<xsl:choose>
+				<xsl:when test="@type">
+					<xsl:call-template name="type">
+						<xsl:with-param name="type" select="@type"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</rng:attribute>
+	</xsl:template>
+	
+	<xsl:template match="@default" mode="attributeDefaultValue">
+    	<xsl:attribute name="defaultValue" namespace="http://relaxng.org/ns/compatibility/annotations/1.0">
+    		<xsl:value-of select="."/>
+    	</xsl:attribute>
+	</xsl:template>
+	
+	<xsl:template match="xs:any" mode="content">
+		<rng:element>
+			<rng:anyName/>
+			<rng:text/>
+		</rng:element>
+	</xsl:template>
+	
+	<xsl:template match="xs:anyAttribute" mode="content">
+		<rng:attribute>
+			<rng:anyName/>
+			<rng:text/>
+		</rng:attribute>
+	</xsl:template>
+	
+	<xsl:template match="xs:choice" mode="content">
+		<rng:choice>
+			<xsl:apply-templates/>
+		</rng:choice>
+	</xsl:template>
+	
+	<xsl:template match="xs:element" mode="content">
+		<rng:element name="{@name}">
+			<xsl:choose>
+				<xsl:when test="@type">
+					<xsl:call-template name="type">
+						<xsl:with-param name="type" select="@type"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</rng:element>
+	</xsl:template>
 	
 	<xsl:template name="occurencies">
 		<xsl:apply-templates select="@default"/>
@@ -293,12 +280,6 @@ knowledge of the CeCILL license and that you accept its terms.
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="@default">
-		<a:documentation>
-            default value is : <xsl:value-of select="."/>
-		</a:documentation>
-	</xsl:template>
-
 	<xsl:template name="loopUntilZero">
 		<xsl:param name="nbLoops"/>
 		<xsl:if test="$nbLoops > 0">
@@ -337,5 +318,24 @@ knowledge of the CeCILL license and that you accept its terms.
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	<!-- <xsl:when test="/xs:schema/xs:complexType[@name=$type]|/xs:schema/xs:simpleType[@name=$type]"> -->
+    
+	<xsl:template name="declareMemberTypes">
+		<xsl:param name="memberTypes"/>
+		<xsl:choose>
+            <xsl:when test="contains($memberTypes, ' ')">
+				<xsl:call-template name="type">
+					<xsl:with-param name="type" select="substring-before($memberTypes, ' ')"/>
+				</xsl:call-template>
+                <xsl:call-template name="declareMemberTypes">
+                    <xsl:with-param name="memberTypes" select="substring-after($memberTypes, ' ')"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+				<xsl:call-template name="type">
+					<xsl:with-param name="type" select="$memberTypes"/>
+				</xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+	</xsl:template>
+    
 </xsl:stylesheet>

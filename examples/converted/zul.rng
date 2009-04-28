@@ -1,0 +1,6048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rng:grammar xmlns="http://www.zkoss.org/2005/zul" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" ns="http://www.zkoss.org/2005/zul" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+	<!--
+    SIMPLETYPE
+    -->
+	<rng:define xmlns="" name="annotationType">
+		<rng:data type="string"/>
+	</rng:define>
+	<rng:define xmlns="" name="booleanType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>false</rng:value>
+				<rng:value>true</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="intType">
+		<rng:choice>
+			<rng:data type="integer"/>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="longType">
+		<rng:choice>
+			<rng:data type="long"/>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="doubleType">
+		<rng:choice>
+			<rng:data type="double"/>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="decimalType">
+		<rng:choice>
+			<rng:data type="decimal"/>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="dateType">
+		<rng:choice>
+			<rng:data type="dateTime"/>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="layoutBorderAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>normal</rng:value>
+				<rng:value>none</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="constraintAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>no empty</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="datetimeConstraintAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>no empty</rng:value>
+				<rng:value>no past</rng:value>
+				<rng:value>no future</rng:value>
+				<rng:value>no today</rng:value>
+				<rng:value>between yyyymmdd and yyyymmdd</rng:value>
+				<rng:value>before yyyymmdd</rng:value>
+				<rng:value>after yyyymmdd</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="numberConstraintAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>no empty</rng:value>
+				<rng:value>no zero</rng:value>
+				<rng:value>no negative</rng:value>
+				<rng:value>no positive</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="alignAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>top</rng:value>
+				<rng:value>texttop</rng:value>
+				<rng:value>middle</rng:value>
+				<rng:value>absmiddle</rng:value>
+				<rng:value>bottom</rng:value>
+				<rng:value>absbottom</rng:value>
+				<rng:value>baseline</rng:value>
+				<rng:value>left</rng:value>
+				<rng:value>right</rng:value>
+				<rng:value>center</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="divAlignAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>left</rng:value>
+				<rng:value>right</rng:value>
+				<rng:value>center</rng:value>
+				<rng:value>justify</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="flashWmodeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>transparent</rng:value>
+				<rng:value>opaque</rng:value>
+				<rng:value>window</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="gridAlignAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>left</rng:value>
+				<rng:value>right</rng:value>
+				<rng:value>center</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="valignAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>top</rng:value>
+				<rng:value>baseline</rng:value>
+				<rng:value>middle</rng:value>
+				<rng:value>bottom</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="tabsAlignAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>start</rng:value>
+				<rng:value>center</rng:value>
+				<rng:value>end</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="packAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>start</rng:value>
+				<rng:value>center</rng:value>
+				<rng:value>end</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="orientAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>horizontal</rng:value>
+				<rng:value>vertical</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="dirAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>normal</rng:value>
+				<rng:value>reverse</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="sortAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>auto</rng:value>
+				<rng:value>none</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="sortDirectionAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>natural</rng:value>
+				<rng:value>ascending</rng:value>
+				<rng:value>descending</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="areaShapeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>rectangle</rng:value>
+				<rng:value>circle</rng:value>
+				<rng:value>polygon</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="textboxTypeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>text</rng:value>
+				<rng:value>password</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="collapseAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>after</rng:value>
+				<rng:value>before</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="chartTypeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>area</rng:value>
+				<rng:value>bar</rng:value>
+				<rng:value>bubble</rng:value>
+				<rng:value>candlestick</rng:value>
+				<rng:value>gantt</rng:value>
+				<rng:value>hilow</rng:value>
+				<rng:value>histogram</rng:value>
+				<rng:value>line</rng:value>
+				<rng:value>pie</rng:value>
+				<rng:value>polar</rng:value>
+				<rng:value>ring</rng:value>
+				<rng:value>scatter</rng:value>
+				<rng:value>stacked_area</rng:value>
+				<rng:value>stacked_bar</rng:value>
+				<rng:value>step</rng:value>
+				<rng:value>step_area</rng:value>
+				<rng:value>time_series</rng:value>
+				<rng:value>wafermap</rng:value>
+				<rng:value>waterfall</rng:value>
+				<rng:value>wind</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="chartPeriodAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>millisecond</rng:value>
+				<rng:value>secondr</rng:value>
+				<rng:value>minute</rng:value>
+				<rng:value>hour</rng:value>
+				<rng:value>day</rng:value>
+				<rng:value>week</rng:value>
+				<rng:value>month</rng:value>
+				<rng:value>quarter</rng:value>
+				<rng:value>year</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!--
+    ATTRIBUTEGROUP
+    -->
+	<rng:define xmlns="" name="mouseAttrGroup">
+		<rng:optional>
+			<rng:attribute name="onClick"/>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onRightClick"/>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="mouseExtAttrGroup">
+		<rng:ref name="mouseAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onDoubleClick"/>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="rootAttrGroup">
+		<rng:optional>
+			<rng:attribute name="onBookmarkChange">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onClientInfo">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="zkAttrGroup">
+		<rng:optional>
+			<rng:attribute name="apply">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="forEach">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="forEachBegin">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="forEachEnd">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="forward">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fulfill">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="if">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="self">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="use">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="unless">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:attribute>
+			<rng:anyName/>
+			<rng:text/>
+		</rng:attribute>
+	</rng:define>
+	<rng:define xmlns="" name="abstractComponentAttrGroup">
+		<rng:ref name="zkAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="id">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="visible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="mold">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onFulfill">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="htmlBasedComponentAttrGroup">
+		<rng:ref name="abstractComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="width">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="height">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sclass">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="zclass">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="style">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="left">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="top">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="draggable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="droppable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="focus">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tooltiptext">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="zindex">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onCreate">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onDrop">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="xulElementAttrGroup">
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="action">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="context">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="popup">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tooltip">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="inputElementAttrGroup">
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="readonly">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxlength">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="cols">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabindex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onChange">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onChanging">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onFocus">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onBlur">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="formatInputElementAttrGroup">
+		<rng:ref name="inputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="format">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="labelElementAttrGroup">
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+	</rng:define>
+	<rng:define xmlns="" name="labelImageElementAttrGroup">
+		<rng:ref name="labelElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="imageContent">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hoverImage">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hoverImageContent">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="headerElementAttrGroup">
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="gridAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="valign">
+				<rng:ref name="valignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!--
+    ELEMENTGROUP
+    -->
+	<rng:define xmlns="" name="baseGroup">
+		<rng:choice>
+			<rng:ref name="attribute"/>
+			<rng:ref name="custom-attributes"/>
+			<rng:ref name="variables"/>
+			<rng:element>
+				<rng:anyName/>
+				<rng:text/>
+			</rng:element>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="anyGroup">
+		<rng:choice>
+			<rng:ref name="baseGroup"/>
+			<rng:ref name="audio"/>
+			<rng:ref name="bandbox"/>
+			<rng:ref name="borderlayout"/>
+			<rng:ref name="box"/>
+			<rng:ref name="button"/>
+			<rng:ref name="calendar"/>
+			<rng:ref name="chart"/>
+			<rng:ref name="checkbox"/>
+			<rng:ref name="columnlayout"/>
+			<rng:ref name="combobox"/>
+			<rng:ref name="datebox"/>
+			<rng:ref name="decimalbox"/>
+			<rng:ref name="div"/>
+			<rng:ref name="doublebox"/>
+			<rng:ref name="fckeditor"/>
+			<rng:ref name="fisheyelist"/>
+			<rng:ref name="gmaps"/>
+			<rng:ref name="grid"/>
+			<rng:ref name="groupbox"/>
+			<rng:ref name="hbox"/>
+			<rng:ref name="html"/>
+			<rng:ref name="iframe"/>
+			<rng:ref name="image"/>
+			<rng:ref name="imagemap"/>
+			<rng:ref name="include"/>
+			<rng:ref name="intbox"/>
+			<rng:ref name="label"/>
+			<rng:ref name="listbox"/>
+			<rng:ref name="longbox"/>
+			<rng:ref name="menubar"/>
+			<rng:ref name="menupopup"/>
+			<rng:ref name="paging"/>
+			<rng:ref name="popup"/>
+			<rng:ref name="portallayout"/>
+			<rng:ref name="progressmeter"/>
+			<rng:ref name="radio"/>
+			<rng:ref name="radiogroup"/>
+			<rng:ref name="script"/>
+			<rng:ref name="separator"/>
+			<rng:ref name="slider"/>
+			<rng:ref name="space"/>
+			<rng:ref name="spinner"/>
+			<rng:ref name="style"/>
+			<rng:ref name="tabbox"/>
+			<rng:ref name="textbox"/>
+			<rng:ref name="timer"/>
+			<rng:ref name="timebox"/>
+			<rng:ref name="toolbar"/>
+			<rng:ref name="toolbarbutton"/>
+			<rng:ref name="tree"/>
+			<rng:ref name="vbox"/>
+			<rng:ref name="window"/>
+			<rng:ref name="zk"/>
+			<rng:ref name="zscript"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="anyGroupSingle">
+		<rng:choice>
+			<rng:ref name="audio"/>
+			<rng:ref name="bandbox"/>
+			<rng:ref name="borderlayout"/>
+			<rng:ref name="box"/>
+			<rng:ref name="button"/>
+			<rng:ref name="calendar"/>
+			<rng:ref name="chart"/>
+			<rng:ref name="checkbox"/>
+			<rng:ref name="columnlayout"/>
+			<rng:ref name="combobox"/>
+			<rng:ref name="datebox"/>
+			<rng:ref name="decimalbox"/>
+			<rng:ref name="div"/>
+			<rng:ref name="doublebox"/>
+			<rng:ref name="fckeditor"/>
+			<rng:ref name="fisheyelist"/>
+			<rng:ref name="gmaps"/>
+			<rng:ref name="grid"/>
+			<rng:ref name="groupbox"/>
+			<rng:ref name="hbox"/>
+			<rng:ref name="html"/>
+			<rng:ref name="iframe"/>
+			<rng:ref name="image"/>
+			<rng:ref name="imagemap"/>
+			<rng:ref name="include"/>
+			<rng:ref name="intbox"/>
+			<rng:ref name="label"/>
+			<rng:ref name="listbox"/>
+			<rng:ref name="longbox"/>
+			<rng:ref name="menubar"/>
+			<rng:ref name="menupopup"/>
+			<rng:ref name="paging"/>
+			<rng:ref name="popup"/>
+			<rng:ref name="portallayout"/>
+			<rng:ref name="progressmeter"/>
+			<rng:ref name="radio"/>
+			<rng:ref name="radiogroup"/>
+			<rng:ref name="script"/>
+			<rng:ref name="separator"/>
+			<rng:ref name="slider"/>
+			<rng:ref name="space"/>
+			<rng:ref name="spinner"/>
+			<rng:ref name="style"/>
+			<rng:ref name="tabbox"/>
+			<rng:ref name="textbox"/>
+			<rng:ref name="timer"/>
+			<rng:ref name="timebox"/>
+			<rng:ref name="toolbar"/>
+			<rng:ref name="toolbarbutton"/>
+			<rng:ref name="tree"/>
+			<rng:ref name="vbox"/>
+			<rng:ref name="window"/>
+			<rng:ref name="zk"/>
+			<rng:ref name="zscript"/>
+		</rng:choice>
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+	</rng:define>
+	<!--
+    ELEMENT
+    -->
+	<!-- applet -->
+	<rng:start xmlns="">
+		<rng:ref name="applet"/>
+	</rng:start>
+	<rng:define xmlns="" name="applet">
+		<rng:element name="applet">
+			<rng:ref name="appletType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="appletType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="code">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="params">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- area -->
+	<rng:start xmlns="">
+		<rng:ref name="area"/>
+	</rng:start>
+	<rng:define xmlns="" name="area">
+		<rng:element name="area">
+			<rng:ref name="areaType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="areaType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="abstractComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="shape">
+				<rng:ref name="areaShapeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="coords">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tooltiptext">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- attribute -->
+	<rng:start xmlns="">
+		<rng:ref name="attribute"/>
+	</rng:start>
+	<rng:define xmlns="" name="attribute">
+		<rng:element name="attribute">
+			<rng:ref name="attributeType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="attributeType">
+		<rng:ref name="zkAttrGroup"/>
+		<rng:attribute name="name">
+			<rng:data type="string"/>
+		</rng:attribute>
+		<rng:attribute name="trim">
+			<rng:ref name="booleanType"/>
+		</rng:attribute>
+	</rng:define>
+	<!-- audio -->
+	<rng:start xmlns="">
+		<rng:ref name="audio"/>
+	</rng:start>
+	<rng:define xmlns="" name="audio">
+		<rng:element name="audio">
+			<rng:ref name="audioType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="audioType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="alignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autostart">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- auxhead -->
+	<rng:start xmlns="">
+		<rng:ref name="auxhead"/>
+	</rng:start>
+	<rng:define xmlns="" name="auxhead">
+		<rng:element name="auxhead">
+			<rng:ref name="auxheadType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="auxheadType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="auxheader"/>
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- auxheader -->
+	<rng:start xmlns="">
+		<rng:ref name="auxheader"/>
+	</rng:start>
+	<rng:define xmlns="" name="auxheader">
+		<rng:element name="auxheader">
+			<rng:ref name="auxheaderType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="auxheaderType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="headerElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="colspan">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="rowspan">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- bandbox -->
+	<rng:start xmlns="">
+		<rng:ref name="bandbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="bandbox">
+		<rng:element name="bandbox">
+			<rng:ref name="bandboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="bandboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="bandpopup"/>
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="inputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="autodrop">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="buttonVisible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="constraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="type">
+				<rng:ref name="textboxTypeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onOK">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- bandpopup -->
+	<rng:start xmlns="">
+		<rng:ref name="bandpopup"/>
+	</rng:start>
+	<rng:define xmlns="" name="bandpopup">
+		<rng:element name="bandpopup">
+			<rng:ref name="bandpopupType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="bandpopupType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- borderlayout -->
+	<rng:start xmlns="">
+		<rng:ref name="borderlayout"/>
+	</rng:start>
+	<rng:define xmlns="" name="borderlayout">
+		<rng:element name="borderlayout">
+			<rng:ref name="borderlayoutType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="borderlayoutType">
+		<rng:interleave>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="attribute"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="custom-attributes"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="variables"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="north"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="south"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="center"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="west"/>
+				</rng:optional>
+			</rng:optional>
+			<rng:optional>
+				<rng:optional>
+					<rng:ref name="east"/>
+				</rng:optional>
+			</rng:optional>
+		</rng:interleave>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- box -->
+	<rng:start xmlns="">
+		<rng:ref name="box"/>
+	</rng:start>
+	<rng:define xmlns="" name="box">
+		<rng:element name="box">
+			<rng:ref name="boxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="boxType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="anyGroup"/>
+				<rng:ref name="splitter"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="spacing">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="widths">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="heights">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="packAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pack">
+				<rng:ref name="packAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- button -->
+	<rng:start xmlns="">
+		<rng:ref name="button"/>
+	</rng:start>
+	<rng:define xmlns="" name="button">
+		<rng:element name="button">
+			<rng:ref name="buttonType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="buttonType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="dir">
+				<rng:ref name="dirAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="href">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="target">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="readonly">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabindex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- calendar -->
+	<rng:start xmlns="">
+		<rng:ref name="calendar"/>
+	</rng:start>
+	<rng:define xmlns="" name="calendar">
+		<rng:element name="calendar">
+			<rng:ref name="calendarType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="calendarType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="dateType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="compact">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="timeZone">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onChange">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- caption -->
+	<rng:start xmlns="">
+		<rng:ref name="caption"/>
+	</rng:start>
+	<rng:define xmlns="" name="caption">
+		<rng:element name="caption">
+			<rng:ref name="captionType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="captionType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+	</rng:define>
+	<!-- center -->
+	<rng:start xmlns="">
+		<rng:ref name="center"/>
+	</rng:start>
+	<rng:define xmlns="" name="center">
+		<rng:element name="center">
+			<rng:ref name="centerType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="centerType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:ref name="anyGroupSingle"/>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="flex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="margins">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autoscroll">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:ref name="layoutBorderAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- chart -->
+	<rng:start xmlns="">
+		<rng:ref name="chart"/>
+	</rng:start>
+	<rng:define xmlns="" name="chart">
+		<rng:element name="chart">
+			<rng:ref name="chartType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="chartType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="alignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hspace">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="vspace">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="type">
+				<rng:ref name="chartTypeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="model">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="xAxis">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="yAxis">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="threeD">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showLegend">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showTooltiptext">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="paneAlpha">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="paneColor">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fgAlpha">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="bgAlpha">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="bgColor">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="timeZone">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="period">
+				<rng:ref name="chartPeriodAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="areaListener">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseAttrGroup"/>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- checkbox -->
+	<rng:start xmlns="">
+		<rng:ref name="checkbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="checkbox">
+		<rng:element name="checkbox">
+			<rng:ref name="checkboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="checkboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checked">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="readonly">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabindex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onCheck">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- column -->
+	<rng:start xmlns="">
+		<rng:ref name="column"/>
+	</rng:start>
+	<rng:define xmlns="" name="column">
+		<rng:element name="column">
+			<rng:ref name="columnType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="columnType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="headerElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="sortDirection">
+				<rng:ref name="sortDirectionAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sortAscending">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sortDescending">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSort">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- columnchildren -->
+	<rng:start xmlns="">
+		<rng:ref name="columnchildren"/>
+	</rng:start>
+	<rng:define xmlns="" name="columnchildren">
+		<rng:element name="columnchildren">
+			<rng:ref name="columnchildrenType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="columnchildrenType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="panel"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- columnlayout -->
+	<rng:start xmlns="">
+		<rng:ref name="columnlayout"/>
+	</rng:start>
+	<rng:define xmlns="" name="columnlayout">
+		<rng:element name="columnlayout">
+			<rng:ref name="columnlayoutType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="columnlayoutType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="columnchildren"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- columns -->
+	<rng:start xmlns="">
+		<rng:ref name="columns"/>
+	</rng:start>
+	<rng:define xmlns="" name="columns">
+		<rng:element name="columns">
+			<rng:ref name="columnsType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="columnsType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="column"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="sizable">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- combobox -->
+	<rng:start xmlns="">
+		<rng:ref name="combobox"/>
+	</rng:start>
+	<rng:define xmlns="" name="combobox">
+		<rng:element name="combobox">
+			<rng:ref name="comboboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="comboboxType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="comboitem"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="inputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="autodrop">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="buttonVisible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="constraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="model">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemRenderer">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="type">
+				<rng:ref name="textboxTypeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedItem">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedIndex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSelect">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- comboitem -->
+	<rng:start xmlns="">
+		<rng:ref name="comboitem"/>
+	</rng:start>
+	<rng:define xmlns="" name="comboitem">
+		<rng:element name="comboitem">
+			<rng:ref name="comboitemType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="comboitemType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="description">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- custom-attributes -->
+	<rng:start xmlns="">
+		<rng:ref name="custom-attributes"/>
+	</rng:start>
+	<rng:define xmlns="" name="custom-attributes">
+		<rng:element name="custom-attributes">
+			<rng:ref name="custom-attributesType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="custom-attributesType">
+		<rng:attribute>
+			<rng:anyName/>
+			<rng:text/>
+		</rng:attribute>
+	</rng:define>
+	<!-- datebox -->
+	<rng:start xmlns="">
+		<rng:ref name="datebox"/>
+	</rng:start>
+	<rng:define xmlns="" name="datebox">
+		<rng:element name="datebox">
+			<rng:ref name="dateboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="dateboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="datetimeConstraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="dateType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lenient">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="compact">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="timeZone">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="buttonVisible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- decimalbox -->
+	<rng:start xmlns="">
+		<rng:ref name="decimalbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="decimalbox">
+		<rng:element name="decimalbox">
+			<rng:ref name="decimalboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="decimalboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="numberConstraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="decimalType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="scale">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- detail -->
+	<rng:start xmlns="">
+		<rng:ref name="detail"/>
+	</rng:start>
+	<rng:define xmlns="" name="detail">
+		<rng:element name="detail">
+			<rng:ref name="detailType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="detailType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="contentStyle">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- div -->
+	<rng:start xmlns="">
+		<rng:ref name="div"/>
+	</rng:start>
+	<rng:define xmlns="" name="div">
+		<rng:element name="div">
+			<rng:ref name="divType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="divType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="divAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- doublebox -->
+	<rng:start xmlns="">
+		<rng:ref name="doublebox"/>
+	</rng:start>
+	<rng:define xmlns="" name="doublebox">
+		<rng:element name="doublebox">
+			<rng:ref name="doubleboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="doubleboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="numberConstraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- east -->
+	<rng:start xmlns="">
+		<rng:ref name="east"/>
+	</rng:start>
+	<rng:define xmlns="" name="east">
+		<rng:element name="east">
+			<rng:ref name="eastType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="eastType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:ref name="anyGroupSingle"/>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="flex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="size">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="splittable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="collapsible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="margins">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autoscroll">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:ref name="layoutBorderAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- fileupload -->
+	<rng:start xmlns="">
+		<rng:ref name="fileupload"/>
+	</rng:start>
+	<rng:define xmlns="" name="fileupload">
+		<rng:element name="fileupload">
+			<rng:ref name="fileuploadType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="fileuploadType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="native">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="number">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- fisheye -->
+	<rng:start xmlns="">
+		<rng:ref name="fisheye"/>
+	</rng:start>
+	<rng:define xmlns="" name="fisheye">
+		<rng:element name="fisheye">
+			<rng:ref name="fisheyeType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="fisheyeType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- fisheyebar -->
+	<rng:start xmlns="">
+		<rng:ref name="fisheyebar"/>
+	</rng:start>
+	<rng:define xmlns="" name="fisheyebar">
+		<rng:element name="fisheyebar">
+			<rng:ref name="fisheyebarType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="fisheyebarType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="fisheye"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="itemWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemMaxWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemMaxHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemPadding">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="attachEdge">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="labelEdge">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onChildAdded">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onChildRemoved">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- flash -->
+	<rng:start xmlns="">
+		<rng:ref name="flash"/>
+	</rng:start>
+	<rng:define xmlns="" name="flash">
+		<rng:element name="flash">
+			<rng:ref name="flashType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="flashType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="bgcolor">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="loop">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autoplay">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="wmode">
+				<rng:ref name="flashWmodeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- foot -->
+	<rng:start xmlns="">
+		<rng:ref name="foot"/>
+	</rng:start>
+	<rng:define xmlns="" name="foot">
+		<rng:element name="foot">
+			<rng:ref name="footType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="footType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="footer"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- footer -->
+	<rng:start xmlns="">
+		<rng:ref name="footer"/>
+	</rng:start>
+	<rng:define xmlns="" name="footer">
+		<rng:element name="footer">
+			<rng:ref name="footerType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="footerType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="span">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- grid -->
+	<rng:start xmlns="">
+		<rng:ref name="grid"/>
+	</rng:start>
+	<rng:define xmlns="" name="grid">
+		<rng:element name="grid">
+			<rng:ref name="gridType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gridType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="auxhead"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:choice>
+			<rng:ref name="columns"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:optional>
+				<rng:choice>
+					<rng:ref name="rows"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="foot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="foot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="rows"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+				</rng:choice>
+			</rng:optional>
+			<rng:ref name="rows"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:optional>
+				<rng:choice>
+					<rng:ref name="columns"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="foot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="foot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="columns"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+				</rng:choice>
+			</rng:optional>
+			<rng:ref name="foot"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:optional>
+				<rng:choice>
+					<rng:ref name="columns"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="rows"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="rows"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="columns"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+				</rng:choice>
+			</rng:optional>
+		</rng:choice>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="gridAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pageSize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="paginal">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="model">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="rowRenderer">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fixedLayout">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="oddRowSclass">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onPaging">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="preloadSize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- groupbox -->
+	<rng:start xmlns="">
+		<rng:ref name="groupbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="groupbox">
+		<rng:element name="groupbox">
+			<rng:ref name="groupboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="groupboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="caption"/>
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="closable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="contentStyle">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- hbox -->
+	<!-- group -->
+	<rng:start xmlns="">
+		<rng:ref name="group"/>
+	</rng:start>
+	<rng:define xmlns="" name="group">
+		<rng:element name="group">
+			<rng:ref name="groupType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="groupType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="gridAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="nowrap">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="spans">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="valign">
+				<rng:ref name="valignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<!-- from Row -->
+		<!-- from group -->
+	</rng:define>
+	<!-- groupfoot -->
+	<rng:start xmlns="">
+		<rng:ref name="groupfoot"/>
+	</rng:start>
+	<rng:define xmlns="" name="groupfoot">
+		<rng:element name="groupfoot">
+			<rng:ref name="groupfootType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="groupfootType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="gridAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="nowrap">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="spans">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="valign">
+				<rng:ref name="valignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<!-- from Row -->
+		<!-- from group -->
+	</rng:define>
+	<rng:start xmlns="">
+		<rng:ref name="hbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="hbox">
+		<rng:element name="hbox">
+			<rng:ref name="hboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="hboxType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="anyGroup"/>
+				<rng:ref name="splitter"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="spacing">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="widths">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="packAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pack">
+				<rng:ref name="packAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- html -->
+	<rng:start xmlns="">
+		<rng:ref name="html"/>
+	</rng:start>
+	<rng:define xmlns="" name="html">
+		<rng:element name="html">
+			<rng:ref name="htmlType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="htmlType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- iframe -->
+	<rng:start xmlns="">
+		<rng:ref name="iframe"/>
+	</rng:start>
+	<rng:define xmlns="" name="iframe">
+		<rng:element name="iframe">
+			<rng:ref name="iframeType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="iframeType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="scrolling">
+				<rng:ref name="iframeScrollingAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="alignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autohide">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onURIChange">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="iframeScrollingAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>auto</rng:value>
+				<rng:value>true</rng:value>
+				<rng:value>false</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- image -->
+	<rng:start xmlns="">
+		<rng:ref name="image"/>
+	</rng:start>
+	<rng:define xmlns="" name="image">
+		<rng:element name="image">
+			<rng:ref name="imageType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="imageType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hover">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hoverContent">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="alignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hspace">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="vspace">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- imagemap -->
+	<rng:start xmlns="">
+		<rng:ref name="imagemap"/>
+	</rng:start>
+	<rng:define xmlns="" name="imagemap">
+		<rng:element name="imagemap">
+			<rng:ref name="imagemapType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="imagemapType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="area"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="alignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hspace">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="vspace">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseAttrGroup"/>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- include -->
+	<rng:start xmlns="">
+		<rng:ref name="include"/>
+	</rng:start>
+	<rng:define xmlns="" name="include">
+		<rng:element name="include">
+			<rng:ref name="includeType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="includeType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="localized">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="progressing">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- intbox -->
+	<rng:start xmlns="">
+		<rng:ref name="intbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="intbox">
+		<rng:element name="intbox">
+			<rng:ref name="intboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="intboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="numberConstraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- longbox -->
+	<rng:start xmlns="">
+		<rng:ref name="longbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="longbox">
+		<rng:element name="longbox">
+			<rng:ref name="longboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="longboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="numberConstraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="longType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- label -->
+	<rng:start xmlns="">
+		<rng:ref name="label"/>
+	</rng:start>
+	<rng:define xmlns="" name="label">
+		<rng:element name="label">
+			<rng:ref name="labelType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="labelType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="multiline">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxlength">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- listbox -->
+	<rng:start xmlns="">
+		<rng:ref name="listbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="listbox">
+		<rng:element name="listbox">
+			<rng:ref name="listboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listboxType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="auxhead"/>
+				<rng:ref name="listitem"/>
+				<rng:ref name="listgroup"/>
+				<rng:ref name="listgroupfoot"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:choice>
+			<rng:ref name="listhead"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+					<rng:ref name="listitem"/>
+					<rng:ref name="listgroup"/>
+					<rng:ref name="listgroupfoot"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:ref name="listfoot"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+					<rng:ref name="listitem"/>
+					<rng:ref name="listgroup"/>
+					<rng:ref name="listgroupfoot"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:ref name="listfoot"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+					<rng:ref name="listitem"/>
+					<rng:ref name="listgroup"/>
+					<rng:ref name="listgroupfoot"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:ref name="listhead"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+					<rng:ref name="listitem"/>
+					<rng:ref name="listgroup"/>
+					<rng:ref name="listgroupfoot"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+		</rng:choice>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="checkmark">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pageSize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="paginal">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onPaging">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="readonly">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="multiple">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="vflex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="rows">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxlength">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="oddRowSclass">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedItem">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedIndex">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabindex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="model">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemRenderer">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fixedLayout">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSelect">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="pagingPosition">
+				<rng:ref name="listboxPagingPositionAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="preloadSize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="innerWidth">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="listboxPagingPositionAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>top</rng:value>
+				<rng:value>bottom</rng:value>
+				<rng:value>both</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- listcell -->
+	<rng:start xmlns="">
+		<rng:ref name="listcell"/>
+	</rng:start>
+	<rng:define xmlns="" name="listcell">
+		<rng:element name="listcell">
+			<rng:ref name="listcellType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listcellType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="span">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- listfoot -->
+	<rng:start xmlns="">
+		<rng:ref name="listfoot"/>
+	</rng:start>
+	<rng:define xmlns="" name="listfoot">
+		<rng:element name="listfoot">
+			<rng:ref name="listfootType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listfootType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="listfooter"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- listfooter -->
+	<rng:start xmlns="">
+		<rng:ref name="listfooter"/>
+	</rng:start>
+	<rng:define xmlns="" name="listfooter">
+		<rng:element name="listfooter">
+			<rng:ref name="listfooterType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listfooterType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="span">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- listgroup -->
+	<rng:start xmlns="">
+		<rng:ref name="listgroup"/>
+	</rng:start>
+	<rng:define xmlns="" name="listgroup">
+		<rng:element name="listgroup">
+			<rng:ref name="listgroupType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listgroupType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="listcell"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checkable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selected">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<!-- from listitem -->
+		<!-- from listgroup -->
+	</rng:define>
+	<!-- listgroupfoot -->
+	<rng:start xmlns="">
+		<rng:ref name="listgroupfoot"/>
+	</rng:start>
+	<rng:define xmlns="" name="listgroupfoot">
+		<rng:element name="listgroupfoot">
+			<rng:ref name="listgroupfootType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listgroupfootType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="listcell"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checkable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selected">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<!-- from listitem -->
+		<!-- -->
+	</rng:define>
+	<!-- listhead -->
+	<rng:start xmlns="">
+		<rng:ref name="listhead"/>
+	</rng:start>
+	<rng:define xmlns="" name="listhead">
+		<rng:element name="listhead">
+			<rng:ref name="listheadType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listheadType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="listheader"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="sizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- listheader -->
+	<rng:start xmlns="">
+		<rng:ref name="listheader"/>
+	</rng:start>
+	<rng:define xmlns="" name="listheader">
+		<rng:element name="listheader">
+			<rng:ref name="listheaderType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listheaderType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="headerElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="sort">
+				<rng:ref name="sortAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sortDirection">
+				<rng:ref name="sortDirectionAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sortAscending">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sortDescending">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxlength">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSort">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- listitem -->
+	<rng:start xmlns="">
+		<rng:ref name="listitem"/>
+	</rng:start>
+	<rng:define xmlns="" name="listitem">
+		<rng:element name="listitem">
+			<rng:ref name="listitemType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="listitemType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="listcell"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checkable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selected">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- menu -->
+	<rng:start xmlns="">
+		<rng:ref name="menu"/>
+	</rng:start>
+	<rng:define xmlns="" name="menu">
+		<rng:element name="menu">
+			<rng:ref name="menuType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="menuType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="menupopup"/>
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+	</rng:define>
+	<!-- menubar -->
+	<rng:start xmlns="">
+		<rng:ref name="menubar"/>
+	</rng:start>
+	<rng:define xmlns="" name="menubar">
+		<rng:element name="menubar">
+			<rng:ref name="menubarType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="menubarType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="menu"/>
+				<rng:ref name="menuitem"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autodrop">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- menuitem -->
+	<rng:start xmlns="">
+		<rng:ref name="menuitem"/>
+	</rng:start>
+	<rng:define xmlns="" name="menuitem">
+		<rng:element name="menuitem">
+			<rng:ref name="menuitemType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="menuitemType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="checkmark">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checked">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autocheck">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="href">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="target">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- menupopup -->
+	<rng:start xmlns="">
+		<rng:ref name="menupopup"/>
+	</rng:start>
+	<rng:define xmlns="" name="menupopup">
+		<rng:element name="menupopup">
+			<rng:ref name="menupopupType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="menupopupType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="menu"/>
+				<rng:ref name="menuitem"/>
+				<rng:ref name="menuseparator"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- menuseparator -->
+	<rng:start xmlns="">
+		<rng:ref name="menuseparator"/>
+	</rng:start>
+	<rng:define xmlns="" name="menuseparator">
+		<rng:element name="menuseparator">
+			<rng:ref name="menuseparatorType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="menuseparatorType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- north -->
+	<rng:start xmlns="">
+		<rng:ref name="north"/>
+	</rng:start>
+	<rng:define xmlns="" name="north">
+		<rng:element name="north">
+			<rng:ref name="northType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="northType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:ref name="anyGroupSingle"/>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="flex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="size">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="splittable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="collapsible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="margins">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autoscroll">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- panel -->
+	<rng:start xmlns="">
+		<rng:ref name="panel"/>
+	</rng:start>
+	<rng:define xmlns="" name="panel">
+		<rng:element name="panel">
+			<rng:ref name="panelType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="panelType">
+		<rng:ref name="caption"/>
+		<rng:ref name="toolbar"/>
+		<rng:ref name="panelchildren"/>
+		<rng:optional>
+			<rng:ref name="toolbar"/>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:ref name="panelBorderAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="closable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="collapsible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="Floatable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="Framable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maximizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maximized">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minimized">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minimizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="Movable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="panelBorderAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>normal</rng:value>
+				<rng:value>none</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- panelchildren -->
+	<rng:start xmlns="">
+		<rng:ref name="panelchildren"/>
+	</rng:start>
+	<rng:define xmlns="" name="panelchildren">
+		<rng:element name="panelchildren">
+			<rng:ref name="panelchildrenType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="panelchildrenType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:ref name="anyGroupSingle"/>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- paging -->
+	<rng:start xmlns="">
+		<rng:ref name="paging"/>
+	</rng:start>
+	<rng:define xmlns="" name="paging">
+		<rng:element name="paging">
+			<rng:ref name="pagingType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="pagingType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="pageSize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="totalSize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="activePage">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pageIncrement">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="detailed">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autohide">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- popup -->
+	<rng:start xmlns="">
+		<rng:ref name="popup"/>
+	</rng:start>
+	<rng:define xmlns="" name="popup">
+		<rng:element name="popup">
+			<rng:ref name="popupType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="popupType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="anyGroup"/>
+				<rng:ref name="menu"/>
+				<rng:ref name="menuitem"/>
+				<rng:ref name="menuseparator"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- portalchildren -->
+	<rng:start xmlns="">
+		<rng:ref name="portalchildren"/>
+	</rng:start>
+	<rng:define xmlns="" name="portalchildren">
+		<rng:element name="portalchildren">
+			<rng:ref name="portalchildrenType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="portalchildrenType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="panel"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- portallayout -->
+	<rng:start xmlns="">
+		<rng:ref name="portallayout"/>
+	</rng:start>
+	<rng:define xmlns="" name="portallayout">
+		<rng:element name="portallayout">
+			<rng:ref name="portallayoutType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="portallayoutType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="portalchildren"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- progressmeter -->
+	<rng:start xmlns="">
+		<rng:ref name="progressmeter"/>
+	</rng:start>
+	<rng:define xmlns="" name="progressmeter">
+		<rng:element name="progressmeter">
+			<rng:ref name="progressmeterType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="progressmeterType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- radio -->
+	<rng:start xmlns="">
+		<rng:ref name="radio"/>
+	</rng:start>
+	<rng:define xmlns="" name="radio">
+		<rng:element name="radio">
+			<rng:ref name="radioType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="radioType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="selected">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checked">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="readonly">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabindex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onCheck">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- radiogroup -->
+	<rng:start xmlns="">
+		<rng:ref name="radiogroup"/>
+	</rng:start>
+	<rng:define xmlns="" name="radiogroup">
+		<rng:element name="radiogroup">
+			<rng:ref name="radiogroupType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="radiogroupType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onCheck">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- row -->
+	<rng:start xmlns="">
+		<rng:ref name="row"/>
+	</rng:start>
+	<rng:define xmlns="" name="row">
+		<rng:element name="row">
+			<rng:ref name="rowType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="rowType">
+		<rng:optional>
+			<rng:choice>
+				<rng:oneOrMore>
+					<rng:ref name="anyGroup"/>
+				</rng:oneOrMore>
+				<rng:ref name="detail"/>
+				<rng:zeroOrMore>
+					<rng:ref name="anyGroup"/>
+				</rng:zeroOrMore>
+				<rng:ref name="detail"/>
+				<rng:zeroOrMore>
+					<rng:ref name="anyGroup"/>
+				</rng:zeroOrMore>
+			</rng:choice>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="gridAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="nowrap">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="spans">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="valign">
+				<rng:ref name="valignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- rows -->
+	<rng:start xmlns="">
+		<rng:ref name="rows"/>
+	</rng:start>
+	<rng:define xmlns="" name="rows">
+		<rng:element name="rows">
+			<rng:ref name="rowsType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="rowsType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="row"/>
+				<rng:ref name="group"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- script -->
+	<rng:start xmlns="">
+		<rng:ref name="script"/>
+	</rng:start>
+	<rng:define xmlns="" name="script">
+		<rng:element name="script">
+			<rng:ref name="scriptType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="scriptType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="abstractComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:attribute name="type">
+			<rng:ref name="scriptTypeAttrType"/>
+		</rng:attribute>
+		<rng:optional>
+			<rng:attribute name="charset">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="defer">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="scriptTypeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>text/javascript</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- separator -->
+	<rng:start xmlns="">
+		<rng:ref name="separator"/>
+	</rng:start>
+	<rng:define xmlns="" name="separator">
+		<rng:element name="separator">
+			<rng:ref name="separatorType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="separatorType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="spacing">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="bar">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- slider -->
+	<rng:start xmlns="">
+		<rng:ref name="slider"/>
+	</rng:start>
+	<rng:define xmlns="" name="slider">
+		<rng:element name="slider">
+			<rng:ref name="sliderType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="sliderType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="curpos">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxpos">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="slidingtext">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pageIncrement">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onRightClick">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onScroll">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onScrolling">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- south -->
+	<rng:start xmlns="">
+		<rng:ref name="south"/>
+	</rng:start>
+	<rng:define xmlns="" name="south">
+		<rng:element name="south">
+			<rng:ref name="southType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="southType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:ref name="anyGroupSingle"/>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="flex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="size">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="splittable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="collapsible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="margins">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autoscroll">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:ref name="layoutBorderAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- space -->
+	<rng:start xmlns="">
+		<rng:ref name="space"/>
+	</rng:start>
+	<rng:define xmlns="" name="space">
+		<rng:element name="space">
+			<rng:ref name="spaceType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="spaceType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="spacing">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="bar">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- spinner -->
+	<rng:start xmlns="">
+		<rng:ref name="spinner"/>
+	</rng:start>
+	<rng:define xmlns="" name="spinner">
+		<rng:element name="spinner">
+			<rng:ref name="spinnerType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="spinnerType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="constraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="buttonVisible">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="step">
+				<rng:data type="integer"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="dateTime"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- splitter -->
+	<rng:start xmlns="">
+		<rng:ref name="splitter"/>
+	</rng:start>
+	<rng:define xmlns="" name="splitter">
+		<rng:element name="splitter">
+			<rng:ref name="splitterType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="splitterType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="collapse">
+				<rng:ref name="collapseAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- style -->
+	<rng:start xmlns="">
+		<rng:ref name="style"/>
+	</rng:start>
+	<rng:define xmlns="" name="style">
+		<rng:element name="style">
+			<rng:ref name="styleType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="styleType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="abstractComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="dynamic">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- tab -->
+	<rng:start xmlns="">
+		<rng:ref name="tab"/>
+	</rng:start>
+	<rng:define xmlns="" name="tab">
+		<rng:element name="tab">
+			<rng:ref name="tabType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tabType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="selected">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="closable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onClose">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- tabbox -->
+	<rng:start xmlns="">
+		<rng:ref name="tabbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="tabbox">
+		<rng:element name="tabbox">
+			<rng:ref name="tabboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tabboxType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="tabs"/>
+				<rng:ref name="tabpanels"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="tabscroll">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="panelSpacing">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedIndex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedTab">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedPanel">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onRightClick">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSelect">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- tabpanel -->
+	<rng:start xmlns="">
+		<rng:ref name="tabpanel"/>
+	</rng:start>
+	<rng:define xmlns="" name="tabpanel">
+		<rng:element name="tabpanel">
+			<rng:ref name="tabpanelType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tabpanelType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:ref name="mouseExtAttrGroup"/>
+	</rng:define>
+	<!-- tabpanels -->
+	<rng:start xmlns="">
+		<rng:ref name="tabpanels"/>
+	</rng:start>
+	<rng:define xmlns="" name="tabpanels">
+		<rng:element name="tabpanels">
+			<rng:ref name="tabpanelsType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tabpanelsType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="tabpanel"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- tabs -->
+	<rng:start xmlns="">
+		<rng:ref name="tabs"/>
+	</rng:start>
+	<rng:define xmlns="" name="tabs">
+		<rng:element name="tabs">
+			<rng:ref name="tabsType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tabsType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="tab"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="tabsAlignAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- tablechildren -->
+	<rng:start xmlns="">
+		<rng:ref name="tablechildren"/>
+	</rng:start>
+	<rng:define xmlns="" name="tablechildren">
+		<rng:element name="tablechildren">
+			<rng:ref name="tablechildrenType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tablechildrenType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="panel"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- tablelayout -->
+	<rng:start xmlns="">
+		<rng:ref name="tablelayout"/>
+	</rng:start>
+	<rng:define xmlns="" name="tablelayout">
+		<rng:element name="tablelayout">
+			<rng:ref name="tablelayoutType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="tablelayoutType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="tablechildren"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- textbox -->
+	<rng:start xmlns="">
+		<rng:ref name="textbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="textbox">
+		<rng:element name="textbox">
+			<rng:ref name="textboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="textboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="inputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="constraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="type">
+				<rng:ref name="textboxTypeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="rows">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="multiline">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabbable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- timer -->
+	<rng:start xmlns="">
+		<rng:ref name="timer"/>
+	</rng:start>
+	<rng:define xmlns="" name="timer">
+		<rng:element name="timer">
+			<rng:ref name="timerType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="timerType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="delay">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="repeats">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="running">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onTimer">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- timebox -->
+	<rng:start xmlns="">
+		<rng:ref name="timebox"/>
+	</rng:start>
+	<rng:define xmlns="" name="timebox">
+		<rng:element name="timebox">
+			<rng:ref name="timeboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="timeboxType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="formatInputElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="constraint">
+				<rng:ref name="datetimeConstraintAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:ref name="dateType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="buttonVisible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="timeZone">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- toolbar -->
+	<rng:start xmlns="">
+		<rng:ref name="toolbar"/>
+	</rng:start>
+	<rng:define xmlns="" name="toolbar">
+		<rng:element name="toolbar">
+			<rng:ref name="toolbarType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="toolbarType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="toolbarbutton"/>
+				<rng:ref name="button"/>
+				<rng:ref name="image"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- toolbarbutton -->
+	<rng:start xmlns="">
+		<rng:ref name="toolbarbutton"/>
+	</rng:start>
+	<rng:define xmlns="" name="toolbarbutton">
+		<rng:element name="toolbarbutton">
+			<rng:ref name="toolbarbuttonType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="toolbarbuttonType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="dir">
+				<rng:ref name="dirAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="href">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="target">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="tabindex">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<!-- tree -->
+	<rng:start xmlns="">
+		<rng:ref name="tree"/>
+	</rng:start>
+	<rng:define xmlns="" name="tree">
+		<rng:element name="tree">
+			<rng:ref name="treeType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treeType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="auxhead"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:choice>
+			<rng:ref name="treecols"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:optional>
+				<rng:choice>
+					<rng:ref name="treechildren"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treefoot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treefoot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treechildren"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+				</rng:choice>
+			</rng:optional>
+			<rng:ref name="treechildren"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:optional>
+				<rng:choice>
+					<rng:ref name="treecols"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treefoot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treefoot"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treecols"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+				</rng:choice>
+			</rng:optional>
+			<rng:ref name="treefoot"/>
+			<rng:zeroOrMore>
+				<rng:choice>
+					<rng:ref name="baseGroup"/>
+					<rng:ref name="auxhead"/>
+				</rng:choice>
+			</rng:zeroOrMore>
+			<rng:optional>
+				<rng:choice>
+					<rng:ref name="treecols"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treechildren"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treechildren"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+					<rng:ref name="treecols"/>
+					<rng:zeroOrMore>
+						<rng:choice>
+							<rng:ref name="baseGroup"/>
+							<rng:ref name="auxhead"/>
+						</rng:choice>
+					</rng:zeroOrMore>
+				</rng:choice>
+			</rng:optional>
+		</rng:choice>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="rows">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="name">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checkmark">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="multiple">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="vflex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fixedLayout">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSelect">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="model">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="treeitemRenderer">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- treecell -->
+	<rng:start xmlns="">
+		<rng:ref name="treecell"/>
+	</rng:start>
+	<rng:define xmlns="" name="treecell">
+		<rng:element name="treecell">
+			<rng:ref name="treecellType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treecellType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="span">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- treechildren -->
+	<rng:start xmlns="">
+		<rng:ref name="treechildren"/>
+	</rng:start>
+	<rng:define xmlns="" name="treechildren">
+		<rng:element name="treechildren">
+			<rng:ref name="treechildrenType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treechildrenType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="treeitem"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- treecol -->
+	<rng:start xmlns="">
+		<rng:ref name="treecol"/>
+	</rng:start>
+	<rng:define xmlns="" name="treecol">
+		<rng:element name="treecol">
+			<rng:ref name="treecolType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treecolType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="headerElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="maxlength">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- treecols -->
+	<rng:start xmlns="">
+		<rng:ref name="treecols"/>
+	</rng:start>
+	<rng:define xmlns="" name="treecols">
+		<rng:element name="treecols">
+			<rng:ref name="treecolsType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treecolsType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="treecol"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="sizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- treefoot -->
+	<rng:start xmlns="">
+		<rng:ref name="treefoot"/>
+	</rng:start>
+	<rng:define xmlns="" name="treefoot">
+		<rng:element name="treefoot">
+			<rng:ref name="treefootType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treefootType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="treefooter"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+	</rng:define>
+	<!-- treefooter -->
+	<rng:start xmlns="">
+		<rng:ref name="treefooter"/>
+	</rng:start>
+	<rng:define xmlns="" name="treefooter">
+		<rng:element name="treefooter">
+			<rng:ref name="treefooterType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treefooterType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="labelImageElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="span">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- treeitem -->
+	<rng:start xmlns="">
+		<rng:ref name="treeitem"/>
+	</rng:start>
+	<rng:define xmlns="" name="treeitem">
+		<rng:element name="treeitem">
+			<rng:ref name="treeitemType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treeitemType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:choice>
+				<rng:ref name="treerow"/>
+				<rng:zeroOrMore>
+					<rng:ref name="baseGroup"/>
+				</rng:zeroOrMore>
+				<rng:ref name="treechildren"/>
+				<rng:zeroOrMore>
+					<rng:ref name="baseGroup"/>
+				</rng:zeroOrMore>
+				<rng:ref name="treechildren"/>
+				<rng:zeroOrMore>
+					<rng:ref name="baseGroup"/>
+				</rng:zeroOrMore>
+				<rng:ref name="treerow"/>
+				<rng:zeroOrMore>
+					<rng:ref name="baseGroup"/>
+				</rng:zeroOrMore>
+			</rng:choice>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selected">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="checkable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="disabled">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- treerow -->
+	<rng:start xmlns="">
+		<rng:ref name="treerow"/>
+	</rng:start>
+	<rng:define xmlns="" name="treerow">
+		<rng:element name="treerow">
+			<rng:ref name="treerowType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="treerowType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="treecell"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:ref name="mouseExtAttrGroup"/>
+	</rng:define>
+	<!-- variables -->
+	<rng:start xmlns="">
+		<rng:ref name="variables"/>
+	</rng:start>
+	<rng:define xmlns="" name="variables">
+		<rng:element name="variables">
+			<rng:ref name="variablesType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="variablesType">
+		<rng:attribute>
+			<rng:anyName/>
+			<rng:text/>
+		</rng:attribute>
+	</rng:define>
+	<!-- vbox -->
+	<rng:start xmlns="">
+		<rng:ref name="vbox"/>
+	</rng:start>
+	<rng:define xmlns="" name="vbox">
+		<rng:element name="vbox">
+			<rng:ref name="vboxType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="vboxType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="anyGroup"/>
+				<rng:ref name="splitter"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="spacing">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="heights">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="align">
+				<rng:ref name="packAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="pack">
+				<rng:ref name="packAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- west -->
+	<rng:start xmlns="">
+		<rng:ref name="west"/>
+	</rng:start>
+	<rng:define xmlns="" name="west">
+		<rng:element name="west">
+			<rng:ref name="westType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="westType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:optional>
+			<rng:ref name="anyGroupSingle"/>
+		</rng:optional>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="flex">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="size">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="splittable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="collapsible">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="margins">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="autoscroll">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:ref name="layoutBorderAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maxsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minsize">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- window -->
+	<rng:start xmlns="">
+		<rng:ref name="window"/>
+	</rng:start>
+	<rng:define xmlns="" name="window">
+		<rng:element name="window">
+			<rng:ref name="windowType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="windowType">
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="caption"/>
+		<rng:zeroOrMore>
+			<rng:ref name="anyGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="border">
+				<rng:ref name="windowBorderAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="title">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="ctrlKeys">
+				<rng:ref name="windowCtrlKeysAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="mode">
+				<rng:ref name="windowModeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="closable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="sizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="position">
+				<rng:ref name="windowPositionAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="contentStyle">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minheight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minwidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="defaultActionOnShow">
+				<rng:ref name="windowActionOnShowAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maximizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="maximized">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minimized">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="minimizable">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="contentSclass">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="mouseExtAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="onOK">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onCancel">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onCtrlKey">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMove">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onOpen">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onClose">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onZIndex">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:ref name="rootAttrGroup"/>
+	</rng:define>
+	<rng:define xmlns="" name="windowActionOnShowAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>moveDown</rng:value>
+				<rng:value>moveRight</rng:value>
+				<rng:value>moveDiagonal</rng:value>
+				<rng:value>appear</rng:value>
+				<rng:value>slideDown</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="windowBorderAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>normal</rng:value>
+				<rng:value>none</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="windowCtrlKeysAttrType">
+		<rng:choice>
+			<rng:data type="string">
+				<rng:param name="pattern">([a-z0-9])+</rng:param>
+			</rng:data>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="windowModeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>embedded</rng:value>
+				<rng:value>modal</rng:value>
+				<rng:value>overlapped</rng:value>
+				<rng:value>popup</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<rng:define xmlns="" name="windowPositionAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>left,top</rng:value>
+				<rng:value>left,center</rng:value>
+				<rng:value>left,bottom</rng:value>
+				<rng:value>center,top</rng:value>
+				<rng:value>center</rng:value>
+				<rng:value>center,bottom</rng:value>
+				<rng:value>right,top</rng:value>
+				<rng:value>right,center</rng:value>
+				<rng:value>right,bottom</rng:value>
+				<rng:value>parent</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- zk -->
+	<rng:start xmlns="">
+		<rng:ref name="zk"/>
+	</rng:start>
+	<rng:define xmlns="" name="zk">
+		<rng:element name="zk">
+			<rng:ref name="zkType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="zkType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="anyGroup"/>
+				<rng:ref name="area"/>
+				<rng:ref name="bandpopup"/>
+				<rng:ref name="caption"/>
+				<rng:ref name="center"/>
+				<rng:ref name="columns"/>
+				<rng:ref name="column"/>
+				<rng:ref name="columnchildren"/>
+				<rng:ref name="comboitem"/>
+				<rng:ref name="detail"/>
+				<rng:ref name="east"/>
+				<rng:ref name="fisheye"/>
+				<rng:ref name="fisheyebar"/>
+				<rng:ref name="fisheyeitem"/>
+				<rng:ref name="foot"/>
+				<rng:ref name="footer"/>
+				<rng:ref name="ginfo"/>
+				<rng:ref name="gmarker"/>
+				<rng:ref name="group"/>
+				<rng:ref name="groupfoot"/>
+				<rng:ref name="listcell"/>
+				<rng:ref name="listfoot"/>
+				<rng:ref name="listfooter"/>
+				<rng:ref name="listgroup"/>
+				<rng:ref name="listgroupfoot"/>
+				<rng:ref name="listhead"/>
+				<rng:ref name="listheader"/>
+				<rng:ref name="listitem"/>
+				<rng:ref name="menu"/>
+				<rng:ref name="menuitem"/>
+				<rng:ref name="menuseparator"/>
+				<rng:ref name="north"/>
+				<rng:ref name="rows"/>
+				<rng:ref name="row"/>
+				<rng:ref name="splitter"/>
+				<rng:ref name="south"/>
+				<rng:ref name="tab"/>
+				<rng:ref name="tablechildren"/>
+				<rng:ref name="tablelayout"/>
+				<rng:ref name="tabpanel"/>
+				<rng:ref name="tabpanels"/>
+				<rng:ref name="tabs"/>
+				<rng:ref name="treecell"/>
+				<rng:ref name="treechildren"/>
+				<rng:ref name="treecol"/>
+				<rng:ref name="treecols"/>
+				<rng:ref name="treefoot"/>
+				<rng:ref name="treefooter"/>
+				<rng:ref name="treeitem"/>
+				<rng:ref name="treerow"/>
+				<rng:ref name="west"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="zkAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="switch">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="case">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="choose">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="when">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- zscript -->
+	<rng:start xmlns="">
+		<rng:ref name="zscript"/>
+	</rng:start>
+	<rng:define xmlns="" name="zscript">
+		<rng:element name="zscript">
+			<rng:ref name="zscriptType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="zscriptType">
+		<rng:ref name="zkAttrGroup"/>
+		<rng:attribute name="src">
+			<rng:data type="string"/>
+		</rng:attribute>
+		<rng:attribute name="deferred">
+			<rng:data type="string"/>
+		</rng:attribute>
+	</rng:define>
+	<!-- zkforge -->
+	<!-- fckeditor -->
+	<rng:start xmlns="">
+		<rng:ref name="fckeditor"/>
+	</rng:start>
+	<rng:define xmlns="" name="fckeditor">
+		<rng:element name="fckeditor">
+			<rng:ref name="fckeditorType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="fckeditorType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="abstractComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="width">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="height">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="value">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="toolbarSet">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onSave">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="customConfigurationsPath">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- fisheyeitem -->
+	<rng:start xmlns="">
+		<rng:ref name="fisheyeitem"/>
+	</rng:start>
+	<rng:define xmlns="" name="fisheyeitem">
+		<rng:element name="fisheyeitem">
+			<rng:ref name="fisheyeitemType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="fisheyeitemType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="abstractComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="label">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="image">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- fisheyelist -->
+	<rng:start xmlns="">
+		<rng:ref name="fisheyelist"/>
+	</rng:start>
+	<rng:define xmlns="" name="fisheyelist">
+		<rng:element name="fisheyelist">
+			<rng:ref name="fisheyelistType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="fisheyelistType">
+		<rng:zeroOrMore>
+			<rng:choice>
+				<rng:ref name="baseGroup"/>
+				<rng:ref name="fisheyeitem"/>
+			</rng:choice>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="itemWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemMaxWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemMaxHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemPadding">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="orient">
+				<rng:ref name="orientAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="attachEdge">
+				<rng:ref name="fisheyeEdgeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="labelEdge">
+				<rng:ref name="fisheyeEdgeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="fisheyeEdgeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>center</rng:value>
+				<rng:value>left</rng:value>
+				<rng:value>right</rng:value>
+				<rng:value>top</rng:value>
+				<rng:value>bottom</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- gmapsGroup -->
+	<rng:define xmlns="" name="gmapsGroup">
+		<rng:choice>
+			<rng:ref name="baseGroup"/>
+			<rng:ref name="gimage"/>
+			<rng:ref name="gmarker"/>
+			<rng:ref name="gpolyline"/>
+			<rng:ref name="gpolygon"/>
+			<rng:ref name="gscreen"/>
+		</rng:choice>
+	</rng:define>
+	<!-- ginfo -->
+	<rng:start xmlns="">
+		<rng:ref name="ginfo"/>
+	</rng:start>
+	<rng:define xmlns="" name="ginfo">
+		<rng:element name="ginfo">
+			<rng:ref name="ginfoType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="ginfoType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lng">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lat">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- gimage -->
+	<rng:start xmlns="">
+		<rng:ref name="gimage"/>
+	</rng:start>
+	<rng:define xmlns="" name="gimage">
+		<rng:element name="gimage">
+			<rng:ref name="gimageType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gimageType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="swlng">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="swlat">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="nelng">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="nelat">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- gmarker -->
+	<rng:start xmlns="">
+		<rng:ref name="gmarker"/>
+	</rng:start>
+	<rng:define xmlns="" name="gmarker">
+		<rng:element name="gmarker">
+			<rng:ref name="gmarkerType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gmarkerType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="open">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lng">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lat">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconAnchorX">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconAnchorY">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconDragCrossAnchorX">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconDragCrossAnchorY">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconDragCrossHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconDragCrossImage">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconDragCrossWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconImage">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconImageMap">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconInfoAnchorX">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconInfoAnchorY">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconMaxHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconMozPrintImage">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconPrintImage">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconPrintShadow">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconShadow">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconShadowHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconShadowWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconHeight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconWidth">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="iconTransparent">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapDrop">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMarkerDrop">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- gmaps -->
+	<rng:start xmlns="">
+		<rng:ref name="gmaps"/>
+	</rng:start>
+	<rng:define xmlns="" name="gmaps">
+		<rng:element name="gmaps">
+			<rng:ref name="gmapsType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gmapsType">
+		<rng:zeroOrMore>
+			<rng:ref name="gmapsGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="ginfo"/>
+		<rng:zeroOrMore>
+			<rng:ref name="gmapsGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="continuousZoom">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="doubleClickZoom">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="enableDragging">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="enableGoogleBar">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="hybrid">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="itemRenderer">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lat">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="lng">
+				<rng:ref name="doubleType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="mapType">
+				<rng:ref name="gmapsMapTypeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="model">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="normal">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="physical">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="satellite">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="scrollWheelZoom">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="selectedItem">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showLargeCtrl">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showOverviewCtrl">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showScaleCtrl">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showSmallCtrl">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showTypeCtrl">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="showZoomCtrl">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="zoom">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapMove">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapZoom">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onInfoChange">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapClick">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapDoubleClick">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapDrop">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMapRightClick">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="onMarkerDrop">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="gmapsMapTypeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>normal</rng:value>
+				<rng:value>satellite</rng:value>
+				<rng:value>hybrid</rng:value>
+				<rng:value>physical</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+	<!-- gpolygon -->
+	<rng:start xmlns="">
+		<rng:ref name="gpolygon"/>
+	</rng:start>
+	<rng:define xmlns="" name="gpolygon">
+		<rng:element name="gpolygon">
+			<rng:ref name="gpolygonType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gpolygonType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="points">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="color">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="weight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="opacity">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="numLevels">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="outline">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fill">
+				<rng:ref name="booleanType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fillColor">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="fillOpacity">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- gpolyline -->
+	<rng:start xmlns="">
+		<rng:ref name="gpolyline"/>
+	</rng:start>
+	<rng:define xmlns="" name="gpolyline">
+		<rng:element name="gpolyline">
+			<rng:ref name="gpolylineType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gpolylineType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="xulElementAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="points">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="color">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="weight">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="opacity">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="numLevels">
+				<rng:ref name="intType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- gscreen -->
+	<rng:start xmlns="">
+		<rng:ref name="gscreen"/>
+	</rng:start>
+	<rng:define xmlns="" name="gscreen">
+		<rng:element name="gscreen">
+			<rng:ref name="gscreenType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="gscreenType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="content">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="offsetX">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="offsetY">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="screenX">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="screenY">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<!-- jasperreport -->
+	<rng:start xmlns="">
+		<rng:ref name="jasperreport"/>
+	</rng:start>
+	<rng:define xmlns="" name="jasperreport">
+		<rng:element name="jasperreport">
+			<rng:ref name="jasperreportType"/>
+		</rng:element>
+	</rng:define>
+	<rng:define xmlns="" name="jasperreportType">
+		<rng:zeroOrMore>
+			<rng:ref name="baseGroup"/>
+		</rng:zeroOrMore>
+		<rng:ref name="htmlBasedComponentAttrGroup"/>
+		<rng:optional>
+			<rng:attribute name="src">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="parameters">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="datasource">
+				<rng:data type="string"/>
+			</rng:attribute>
+		</rng:optional>
+		<rng:optional>
+			<rng:attribute name="type">
+				<rng:ref name="jasperreportTypeAttrType"/>
+			</rng:attribute>
+		</rng:optional>
+	</rng:define>
+	<rng:define xmlns="" name="jasperreportTypeAttrType">
+		<rng:choice>
+			<rng:choice>
+				<rng:value>xml</rng:value>
+				<rng:value>html</rng:value>
+				<rng:value>rtf</rng:value>
+				<rng:value>xls</rng:value>
+				<rng:value>jxl</rng:value>
+				<rng:value>csv</rng:value>
+				<rng:value>odt</rng:value>
+			</rng:choice>
+			<rng:ref name="annotationType"/>
+		</rng:choice>
+	</rng:define>
+</rng:grammar>
