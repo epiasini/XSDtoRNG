@@ -90,6 +90,19 @@ knowledge of the CeCILL license and that you accept its terms.
 		</xsl:call-template>
 	</xsl:template>
 	
+	<xsl:template match="xs:list">
+		<rng:list>
+			<xsl:apply-templates select="@itemType"/>
+			<xsl:apply-templates/>
+		</rng:list>
+	</xsl:template>
+	
+	<xsl:template match="@itemType">
+		<xsl:call-template name="type">
+			<xsl:with-param name="type" select="."/>
+		</xsl:call-template>
+	</xsl:template>
+	
 	<xsl:template match="xs:complexType[@name]|xs:simpleType[@name]|xs:group[@name]|xs:attributeGroup[@name]">
 		<!-- the schemas may be included several times, so it needs a combine attribute
                                      (the attributes are inversed :-) at the transformation) -->
@@ -171,9 +184,16 @@ knowledge of the CeCILL license and that you accept its terms.
 		</rng:interleave>
 	</xsl:template>
 	
-	<xsl:template match="xs:import[@schemaLocation][@namespace]">
-		<xsl:variable name="schemaLocation" select="substring-before(@schemaLocation, '.xsd')"/>
-		<rng:include href="{$schemaLocation}.rng" ns="{@namespace}"/>
+	<xsl:template match="xs:import|xs:include|xs:redefine">
+		<rng:include>
+			<xsl:if test="@schemaLocation">
+				<xsl:attribute name="href"><xsl:value-of select="concat(substring-before(@schemaLocation, '.xsd'),'.rng')"/></xsl:attribute>
+			</xsl:if>
+			<xsl:if test="@namespace">
+				<xsl:attribute name="ns"><xsl:value-of select="@namespace"/></xsl:attribute>
+			</xsl:if>
+			<xsl:apply-templates/>
+		</rng:include>
 	</xsl:template>
     
 	<xsl:template match="@default">
