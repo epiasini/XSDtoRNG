@@ -133,7 +133,7 @@ knowledge of the CeCILL license and that you accept its terms.
 		<!-- case of root element -->
 		<xsl:choose>
 			<xsl:when test="parent::xs:schema">
-				<rng:start>
+				<rng:start combine="choice">
 					<rng:ref name="{@name}"/>
 				</rng:start>
 				<rng:define name="{@name}">
@@ -323,6 +323,25 @@ knowledge of the CeCILL license and that you accept its terms.
 				<rng:data type="{substring-after($type, ':')}">
 					<xsl:apply-templates/>
 				</rng:data>
+			</xsl:when>
+			<xsl:when test="starts-with($type, 'xml:')">
+				<xsl:variable name="localName" select="substring-after($type, ':')"/>
+				<rng:attribute name="{$localName}" ns="http://www.w3.org/XML/1998/namespace">
+					<xsl:choose>
+						<xsl:when test="$localName='lang'">
+							<rng:value type="language"/>
+						</xsl:when>
+						<xsl:when test="$localName='space'">
+							<rng:choice>
+						        <rng:value>default</rng:value>
+						        <rng:value>preserve</rng:value>
+					      	</rng:choice>
+						</xsl:when>
+						<xsl:otherwise>
+							<rng:text/>
+						</xsl:otherwise>
+					</xsl:choose>
+			  	</rng:attribute>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:choose>
