@@ -53,10 +53,10 @@ knowledge of the CeCILL license and that you accept its terms.
 		</rng:grammar>
 	</xsl:template>
 	
-	<!-- in order to manage occurencies (and defaut) attributes goes there
+	<!-- in order to manage occurrences (and defaut) attributes goes there
 		 before going to mode="content" templates -->
 	<xsl:template match="xs:*">
-		<xsl:call-template name="occurencies"/>
+		<xsl:call-template name="occurrences"/>
 	</xsl:template>
 	
 	<xsl:template match="comment()">
@@ -141,7 +141,7 @@ knowledge of the CeCILL license and that you accept its terms.
 				</rng:define>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:call-template name="occurencies"/>
+				<xsl:call-template name="occurrences"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -200,6 +200,21 @@ knowledge of the CeCILL license and that you accept its terms.
 		<a:documentation>
             default value is : <xsl:value-of select="."/>
 		</a:documentation>
+	</xsl:template>
+    
+    <xsl:template match="xs:attribute[@name]">
+		<xsl:choose>
+			<xsl:when test="@use and @use='prohibited'"/>
+			<xsl:when test="@use and @use='required'">
+				<xsl:apply-templates select="current()" mode="content"/>
+			</xsl:when>
+			<!-- by default, attributes are optional -->
+			<xsl:otherwise>
+				<rng:optional>
+					<xsl:apply-templates select="current()" mode="content"/>
+				</rng:optional>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
     
 	<xsl:template match="xs:attribute[@name]" mode="content">
@@ -261,14 +276,9 @@ knowledge of the CeCILL license and that you accept its terms.
 		</rng:element>
 	</xsl:template>
 	
-	<xsl:template name="occurencies">
+	<xsl:template name="occurrences">
 		<xsl:apply-templates select="@default"/>
 		<xsl:choose>
-			<xsl:when test="@use and @use='optional'">
-				<rng:optional>
-					<xsl:apply-templates select="current()" mode="content"/>
-				</rng:optional>
-			</xsl:when>
 			<xsl:when test="@maxOccurs and @maxOccurs='unbounded'">
 				<xsl:choose>
 					<xsl:when test="@minOccurs and @minOccurs='0'">
