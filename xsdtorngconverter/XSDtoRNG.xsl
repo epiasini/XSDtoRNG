@@ -168,7 +168,11 @@ knowledge of the CeCILL license and that you accept its terms.
 		<xsl:apply-templates/>
 	</xsl:template>
 	
-	<xsl:template match="xs:minInclusive[@value]|xs:minExclusive[@value]|xs:maxInclusive[@value]|xs:maxExclusive[@value]|xs:pattern[@value]">
+    <!--
+ support for fractionDigits, length, maxExclusive, maxInclusive, maxLength, minExclusive, minInclusive, minLength, pattern, totalDigits, whiteSpace
+explicit removal of enumeration as not all the XSLT processor respect templates priority
+ -->
+	<xsl:template match="xs:*[not(self::xs:enumeration)][@value]">
 		<rng:param name="{local-name()}">
 			<xsl:value-of select="@value"/>
 		</rng:param>
