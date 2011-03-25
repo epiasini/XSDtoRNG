@@ -63,6 +63,9 @@ knowledge of the CeCILL license and that you accept its terms.
 		<xsl:copy/>
 	</xsl:template>
 	
+	<!-- unique and key are not supported in RelaxNG, must be done in schematron -->
+	<xsl:template match="xs:unique|xs:key"/>
+	
 	<xsl:template match="xs:annotation">
 		<a:documentation>
 			<xsl:apply-templates/>
@@ -107,7 +110,16 @@ knowledge of the CeCILL license and that you accept its terms.
 		<!-- the schemas may be included several times, so it needs a combine attribute
                                      (the attributes are inversed :-) at the transformation) -->
 		<rng:define name="{@name}">
-			<xsl:apply-templates/>
+			<!-- work-around for empty issue -->
+			<xsl:choose>
+				<xsl:when test="not(*[local-name() != 'annotation'])">
+					<rng:empty/>
+					<xsl:apply-templates/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</rng:define>
 	</xsl:template>
     
@@ -134,9 +146,10 @@ knowledge of the CeCILL license and that you accept its terms.
 		<xsl:choose>
 			<xsl:when test="parent::xs:schema">
 				<rng:start combine="choice">
-					<rng:ref name="{@name}"/>
+					<!-- must introduce prefix in order not to override a complextype of the same name -->
+					<rng:ref name="starting_{@name}"/>
 				</rng:start>
-				<rng:define name="{@name}">
+				<rng:define name="starting_{@name}">
 					<xsl:apply-templates select="current()" mode="content"/>
 				</rng:define>
 			</xsl:when>
@@ -272,6 +285,11 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 					<xsl:call-template name="type">
 						<xsl:with-param name="type" select="@type"/>
 					</xsl:call-template>
+				</xsl:when>
+				<!-- work-around for empty issue -->
+				<xsl:when test="not(*[local-name() != 'annotation']) and not(@type)">
+					<rng:empty/>
+					<xsl:apply-templates/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates/>
