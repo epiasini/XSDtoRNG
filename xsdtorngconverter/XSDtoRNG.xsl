@@ -122,16 +122,37 @@ knowledge of the CeCILL license and that you accept its terms.
 			</xsl:choose>
 		</rng:define>
 	</xsl:template>
-    
+	
 	<!-- when finds a ref attribute replace it by its type call (ref name="" or type) -->	
 	<xsl:template match="xs:*[@ref]" mode="content">
-		<xsl:call-template name="type">
-			<xsl:with-param name="type" select="@ref"/>
-		</xsl:call-template>
+		<!-- when finds a attribute declaraction with a ref attribute replace it by
+		its type call prefixed by attr_ -->
+		<xsl:choose>
+			<xsl:when test="local-name() = 'attribute'">
+				<xsl:variable name="type">
+					<xsl:choose>
+						<xsl:when test="contains(@ref, ':')">
+							<xsl:value-of select="concat('attr_', substring-after(@ref, ':'))"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="concat('attr_', @ref)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<xsl:call-template name="type">
+					<xsl:with-param name="type" select="$type"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="type">
+					<xsl:with-param name="type" select="@ref"/>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
     <!-- the <xs:simpleType> and <xs:complexType without name attribute are ignored -->
-	<xsl:template match="xs:sequence|xs:complexContent|xs:simpleType|xs:complexType">
+	<xsl:template match="xs:sequence|xs:simpleContent|xs:complexContent|xs:simpleType|xs:complexType">
 		<xsl:apply-templates/>
 	</xsl:template>
 	
@@ -220,6 +241,20 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 	</xsl:template>
     
     <xsl:template match="xs:attribute[@name]">
+    	<xsl:choose>
+    		<!-- attributes specified at schema level -->
+    		<xsl:when test="parent::xs:schema">
+	    		<rng:define name="attr_{@name}">
+					<xsl:apply-templates select="current()" mode="occurrences"/>
+				</rng:define>
+    		</xsl:when>
+    		<xsl:otherwise>
+    			<xsl:apply-templates select="current()" mode="occurrences"/>
+    		</xsl:otherwise>
+    	</xsl:choose>
+    </xsl:template>
+	
+	<xsl:template match="xs:attribute[@name]" mode="occurrences">
 		<xsl:choose>
 			<xsl:when test="@use and @use='prohibited'"/>
 			<xsl:when test="@use and @use='required'">
@@ -353,7 +388,8 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 			<!-- have to improve the prefix detection -->
 			<xsl:when test="starts-with($type, 'xs:') or starts-with($type, 'xsd:')">
 				<rng:data type="{substring-after($type, ':')}">
-					<xsl:apply-templates/>
+					<!-- xsltproc tries to apply templates on current attributes -->
+					<xsl:apply-templates select="*"/>
 				</rng:data>
 			</xsl:when>
 			<xsl:when test="starts-with($type, 'xml:')">
