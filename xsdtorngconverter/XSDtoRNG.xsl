@@ -215,9 +215,7 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 	<xsl:template match="xs:all">
 		<rng:interleave>
 			<xsl:for-each select="child::text()[normalize-space(.) != ''] | child::*">
-				<rng:optional>
-					<xsl:apply-templates select="current()"/>
-				</rng:optional>
+				<xsl:apply-templates select="current()"/>
 			</xsl:for-each>
 		</rng:interleave>
 	</xsl:template>
