@@ -324,6 +324,12 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 					<rng:empty/>
 					<xsl:apply-templates/>
 				</xsl:when>
+                                <!-- An empty xsd:complexType with @mixed='true' is equivalent to text -->
+                                <xsl:when test="not(@type) and *[local-name() = 'complexType' and @mixed = 'true' and not(*)]">
+                                  <xsl:apply-templates/>
+                                  <!-- Allow text but no elements -->
+                                  <rng:text/>
+                                </xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates/>
 				</xsl:otherwise>
