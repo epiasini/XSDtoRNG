@@ -39,6 +39,9 @@ knowledge of the CeCILL license and that you accept its terms.
 	<xsl:output indent="yes" method="xml"/>
 	
 	<xsl:preserve-space elements="*"/>
+
+	<!-- optional start element. If not given, use the root element -->
+	<xsl:param name="start" as="element(*)?"/>
 	
 	<xsl:template match="/xs:schema">
 		<rng:grammar>
@@ -163,9 +166,9 @@ knowledge of the CeCILL license and that you accept its terms.
 	</xsl:template>
     
 	<xsl:template match="xs:element[@name]">
-		<!-- case of root element -->
+		<!-- start or root element -->
 		<xsl:choose>
-			<xsl:when test="parent::xs:schema">
+			<xsl:when test="$start and @name=$start or not($start) and parent::xs:schema">
 				<rng:start combine="choice">
 					<!-- must introduce prefix in order not to override a complextype of the same name -->
 					<rng:ref name="starting_{@name}"/>
