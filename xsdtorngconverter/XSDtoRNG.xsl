@@ -385,16 +385,14 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 		<xsl:param name="type"/>
 		<xsl:choose>
 			<xsl:when test="contains($type, 'anyType')">
-				<rng:data type="string">
-					<xsl:apply-templates/>
-				</rng:data>
+				<rng:data type="string"/>
+				<xsl:apply-templates/>
 			</xsl:when>
 			<!-- have to improve the prefix detection -->
 			<xsl:when test="starts-with($type, 'xs:') or starts-with($type, 'xsd:')">
-				<rng:data type="{substring-after($type, ':')}">
-					<!-- xsltproc tries to apply templates on current attributes -->
-					<xsl:apply-templates select="*"/>
-				</rng:data>
+				<rng:data type="{substring-after($type, ':')}"/>
+				<!-- xsltproc tries to apply templates on current attributes -->
+				<xsl:apply-templates select="*"/>
 			</xsl:when>
 			<xsl:when test="starts-with($type, 'xml:')">
 				<xsl:variable name="localName" select="substring-after($type, ':')"/>
