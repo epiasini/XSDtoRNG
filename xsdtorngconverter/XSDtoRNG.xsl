@@ -18,7 +18,7 @@
 		</rng:grammar>
 	</xsl:template>
 	
-	<!-- in order to manage occurrences (and defaut) attributes goes there
+	<!-- in order to manage occurrences (and default) attributes goes there
 		 before going to mode="content" templates -->
 	<xsl:template match="xs:*">
 		<xsl:call-template name="occurrences"/>
@@ -169,9 +169,10 @@
 	
     <!--
  support for fractionDigits, length, maxExclusive, maxInclusive, maxLength, minExclusive, minInclusive, minLength, pattern, totalDigits, whiteSpace
+    param is only allowed inside data element
 explicit removal of enumeration as not all the XSLT processor respect templates priority
  -->
-	<xsl:template match="xs:*[not(self::xs:enumeration)][@value]">
+    <xsl:template match="xs:*[not(self::xs:enumeration)][@value]" mode="data">
 		<rng:param name="{local-name()}">
 			<xsl:value-of select="@value"/>
 		</rng:param>
@@ -350,12 +351,16 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 		<xsl:param name="type"/>
 		<xsl:choose>
 			<xsl:when test="contains($type, 'anyType')">
-				<rng:data type="string"/>
+                <rng:data type="string">
+                    <xsl:apply-templates mode="data"/>
+                </rng:data>
 				<xsl:apply-templates/>
 			</xsl:when>
 			<!-- have to improve the prefix detection -->
 			<xsl:when test="starts-with($type, 'xs:') or starts-with($type, 'xsd:')">
-				<rng:data type="{substring-after($type, ':')}"/>
+                <rng:data type="{substring-after($type, ':')}">
+                    <xsl:apply-templates select="*" mode="data"/>
+                </rng:data>
 				<!-- xsltproc tries to apply templates on current attributes -->
 				<xsl:apply-templates select="*"/>
 			</xsl:when>
