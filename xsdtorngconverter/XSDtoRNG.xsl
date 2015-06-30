@@ -1,39 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright or © or Copr. Nicolas Debeissat
-
-nicolas.debeissat@gmail.com (http://debeissat.nicolas.free.fr/)
-
-This software is a computer program whose purpose is to convert a
-XSD schema into a RelaxNG schema.
-
-This software is governed by the CeCILL license under French law and
-abiding by the rules of distribution of free software.  You can  use, 
-modify and/ or redistribute the software under the terms of the CeCILL
-license as circulated by CEA, CNRS and INRIA at the following URL
-"http://www.cecill.info". 
-
-As a counterpart to the access to the source code and  rights to copy,
-modify and redistribute granted by the license, users are provided only
-with a limited warranty  and the software's author,  the holder of the
-economic rights,  and the successive licensors  have only  limited
-liability. 
-
-In this respect, the user's attention is drawn to the risks associated
-with loading,  using,  modifying and/or developing or reproducing the
-software by the user in light of its specific status of free software,
-that may mean  that it is complicated to manipulate,  and  that  also
-therefore means  that it is reserved for developers  and  experienced
-professionals having in-depth computer knowledge. Users are therefore
-encouraged to load and test the software's suitability as regards their
-requirements in conditions enabling the security of their systems and/or 
-data to be ensured and,  more generally, to use and operate it in the 
-same conditions as regards security. 
-
-The fact that you are presently reading this means that you have had
-knowledge of the CeCILL license and that you accept its terms.
-
--->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" exclude-result-prefixes="xs" version="1.0">
 	
 	<xsl:output indent="yes" method="xml"/>
@@ -53,7 +18,7 @@ knowledge of the CeCILL license and that you accept its terms.
 		</rng:grammar>
 	</xsl:template>
 	
-	<!-- in order to manage occurrences (and defaut) attributes goes there
+	<!-- in order to manage occurrences (and default) attributes goes there
 		 before going to mode="content" templates -->
 	<xsl:template match="xs:*">
 		<xsl:call-template name="occurrences"/>
@@ -131,6 +96,10 @@ knowledge of the CeCILL license and that you accept its terms.
 			<xsl:when test="local-name() = 'attribute'">
 				<xsl:variable name="type">
 					<xsl:choose>
+                        <!-- do not override attribute ref if it is a standard xml:* attribute -->
+                        <xsl:when test="starts-with(@ref, 'xml:')">
+                            <xsl:value-of select="@ref"/>
+                        </xsl:when>
 						<xsl:when test="contains(@ref, ':')">
 							<xsl:value-of select="concat('attr_', substring-after(@ref, ':'))"/>
 						</xsl:when>
@@ -204,9 +173,10 @@ knowledge of the CeCILL license and that you accept its terms.
 	
     <!--
  support for fractionDigits, length, maxExclusive, maxInclusive, maxLength, minExclusive, minInclusive, minLength, pattern, totalDigits, whiteSpace
+    param is only allowed inside data element
 explicit removal of enumeration as not all the XSLT processor respect templates priority
  -->
-	<xsl:template match="xs:*[not(self::xs:enumeration)][@value]">
+    <xsl:template match="xs:*[not(self::xs:enumeration)][@value]" mode="data">
 		<rng:param name="{local-name()}">
 			<xsl:value-of select="@value"/>
 		</rng:param>
@@ -385,12 +355,16 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 		<xsl:param name="type"/>
 		<xsl:choose>
 			<xsl:when test="contains($type, 'anyType')">
-				<rng:data type="string"/>
+                <rng:data type="string">
+                    <xsl:apply-templates mode="data"/>
+                </rng:data>
 				<xsl:apply-templates/>
 			</xsl:when>
 			<!-- have to improve the prefix detection -->
 			<xsl:when test="starts-with($type, 'xs:') or starts-with($type, 'xsd:')">
-				<rng:data type="{substring-after($type, ':')}"/>
+                <rng:data type="{substring-after($type, ':')}">
+                    <xsl:apply-templates select="*" mode="data"/>
+                </rng:data>
 				<!-- xsltproc tries to apply templates on current attributes -->
 				<xsl:apply-templates select="*"/>
 			</xsl:when>
