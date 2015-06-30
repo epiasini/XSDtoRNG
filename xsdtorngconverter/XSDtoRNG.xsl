@@ -96,6 +96,10 @@
 			<xsl:when test="local-name() = 'attribute'">
 				<xsl:variable name="type">
 					<xsl:choose>
+                        <!-- do not override attribute ref if it is a standard xml:* attribute -->
+                        <xsl:when test="starts-with(@ref, 'xml:')">
+                            <xsl:value-of select="@ref"/>
+                        </xsl:when>
 						<xsl:when test="contains(@ref, ':')">
 							<xsl:value-of select="concat('attr_', substring-after(@ref, ':'))"/>
 						</xsl:when>
