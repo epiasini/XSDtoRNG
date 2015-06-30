@@ -2,6 +2,11 @@
 
 XSL stylesheet for XML Schema (XSD) to Relax NG (RNG) conversion.
 
-# Demonstration web page :
+# Demonstration web page
 
 http://debeissat.nicolas.free.fr/XSDtoRNG.php
+
+# Resources
+
+http://relaxng.org/
+
