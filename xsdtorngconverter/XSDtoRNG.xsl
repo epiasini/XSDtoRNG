@@ -5,6 +5,9 @@
 	
 	<xsl:preserve-space elements="*"/>
 	
+    <!-- optional start element. If not given, all elements defined at top of schema are potential start elements. -->
+    <xsl:param name="start"/>
+	
 	<xsl:template match="/xs:schema">
 		<rng:grammar>
 			<xsl:for-each select="namespace::*">
@@ -132,18 +135,37 @@
 	</xsl:template>
     
 	<xsl:template match="xs:element[@name]">
-		<!-- case of root element -->
 		<xsl:choose>
+            <!-- case of element defined at root of schema, must be surrounded by rng:define with a rng:start reference if is the root element -->
 			<xsl:when test="parent::xs:schema">
-				<rng:start combine="choice">
-					<!-- must introduce prefix in order not to override a complextype of the same name -->
-					<rng:ref name="starting_{@name}"/>
-				</rng:start>
-				<rng:define name="starting_{@name}">
-					<xsl:apply-templates select="current()" mode="content"/>
-				</rng:define>
-			</xsl:when>
-			<xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="not($start)">
+                        <rng:start combine="choice">
+                            <!-- must introduce prefix in order not to override a complextype of the same name -->
+                            <rng:ref name="starting_{@name}"/>
+                        </rng:start>
+                        <rng:define name="starting_{@name}">
+                            <xsl:apply-templates select="current()" mode="content"/>
+                        </rng:define>
+                    </xsl:when>
+                    <!-- if a starting element is defined, it is the only one element which will be surrounded by rng:start -->
+                    <xsl:when test="$start = @name">
+                        <rng:start>
+                            <!-- must introduce prefix in order not to override a complextype of the same name -->
+                            <rng:ref name="starting_{@name}"/>
+                        </rng:start>
+                        <rng:define name="starting_{@name}">
+                            <xsl:apply-templates select="current()" mode="content"/>
+                        </rng:define>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <rng:define name="{@name}">
+                            <xsl:apply-templates select="current()" mode="content"/>
+                        </rng:define>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
 				<xsl:call-template name="occurrences"/>
 			</xsl:otherwise>
 		</xsl:choose>
