@@ -397,7 +397,7 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 				<rng:attribute name="{$localName}" ns="http://www.w3.org/XML/1998/namespace">
 					<xsl:choose>
 						<xsl:when test="$localName='lang'">
-							<rng:value type="language"/>
+                            <rng:data type="language"/>
 						</xsl:when>
 						<xsl:when test="$localName='space'">
 							<rng:choice>
