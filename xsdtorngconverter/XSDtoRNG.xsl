@@ -182,6 +182,8 @@ explicit removal of enumeration as not all the XSLT processor respect templates 
 		</rng:param>
 	</xsl:template>
 	
+    <xsl:template match="node()" mode="data"/>
+	
 	<xsl:template match="xs:all">
 		<rng:interleave>
 			<xsl:for-each select="child::text()[normalize-space(.) != ''] | child::*">
